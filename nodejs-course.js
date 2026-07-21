@@ -398,8 +398,8 @@ const token = jwt.sign(
         `;
     });
 
-    navLinksList.innerHTML = navHtml;
-    notesContainer.innerHTML = contentHtml;
+    if (navLinksList) navLinksList.innerHTML = navHtml;
+    if (notesContainer) notesContainer.innerHTML = contentHtml;
 
     // Scroll Spy & Active Nav with Auto-Scroll Sidebar
     const sections = document.querySelectorAll('.course-section');
