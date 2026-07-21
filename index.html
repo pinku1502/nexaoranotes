@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexoraCode - Master Programming & Build SaaS Apps</title>
+  <meta name="description" content="Learn programming through structured developer notes, real projects, coding challenges, interview preparation, and developer roadmaps.">
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+
+  <!-- PAGE PRELOADER OVERLAY -->
+  <div id="loader-wrapper">
+    <img src="logo.png" alt="NexoraCode Logo" class="loader-logo" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(59, 130, 246, 0.4); box-shadow: var(--glow-blue); margin-bottom: 10px; object-fit: cover;">
+    <div class="loader-spinner"></div>
+    <div class="loader-text"><span>Nexora<span class="gradient-text">Code</span></span></div>
+  </div>
+
+  <!-- Background Particle Canvas & Blobs -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- STICKY NAVIGATION BAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="logo">
+      <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+      <span>Nexora<span class="gradient-text">Code</span></span>
+    </a>
+    
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#languages" class="nav-link">Languages</a></li>
+      <li><a href="#notes" class="nav-link">Notes</a></li>
+      <li><a href="#challenges" class="nav-link">Challenges</a></li>
+      <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+      <li><a href="#faq" class="nav-link">About</a></li>
+      <li><a href="#footer" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn btn-secondary" id="open-login-btn">Log In</button>
+      <button class="btn btn-primary" id="open-signup-btn">Create Account</button>
+    </div>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <div class="hero-badge">⚡ Learn. Build. Innovate.</div>
+      <h1 class="hero-headline">
+        Master Programming<br>Like a Professional<br><span class="gradient-text">Developer</span>
+      </h1>
+      <p class="hero-sub">
+        Learn programming through structured notes, real-world projects, coding challenges, interview preparation, and developer resources.
+      </p>
+      
+      <!-- Quote Cards -->
+      <div class="hero-quotes">
+        <div class="quote-card glass-card">
+          <blockquote>"First, solve the problem. Then, write the code."</blockquote>
+          <cite>— John Johnson</cite>
+        </div>
+        <div class="quote-card glass-card purple-border">
+          <blockquote>"Programs must be written for people to read, and only incidentally for machines to execute."</blockquote>
+          <cite>— Harold Abelson</cite>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <button class="btn btn-primary" onclick="document.getElementById('languages').scrollIntoView();">Start Learning <i class="fa-solid fa-arrow-right"></i></button>
+        <button class="btn btn-secondary" onclick="document.getElementById('notes').scrollIntoView();">Explore Notes</button>
+      </div>
+    </div>
+
+    <!-- Right Side: Code Editor Mockup + Orbiting Icons -->
+    <div class="hero-right">
+      <div class="code-editor-mockup">
+        <div class="editor-header">
+          <div class="editor-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="editor-tab"><i class="fa-brands fa-js" style="color: #f7df1e; margin-right: 6px;"></i> app_server.js</div>
+        </div>
+        <div class="editor-body">
+          <pre><code><span class="code-keyword">const</span> <span class="code-variable">codeNexa</span> = <span class="code-keyword">require</span>(<span class="code-string">'nexoracode-sandbox'</span>);
+<span class="code-keyword">const</span> <span class="code-variable">app</span> = <span class="code-variable">codeNexa</span>.<span class="code-function">createWorkspace</span>();
+
+<span class="code-variable">app</span>.<span class="code-function">initialize</span>({
+  <span class="code-variable">port</span>: <span class="code-number">2026</span>,
+  <span class="code-variable">status</span>: <span class="code-string">'ready'</span>
+});
+
+<span class="code-variable">app</span>.<span class="code-function">on</span>(<span class="code-string">'start'</span>, () => {
+  <span class="code-variable">console</span>.<span class="code-function">log</span>(<span class="code-string">`🚀 NexoraCode Sandbox Compiled Successfully.`</span>);
+});
+
+<span class="code-variable">app</span>.<span class="code-function">run</span>();</code></pre>
+        </div>
+      </div>
+      <!-- Orbiting icons -->
+      <div class="floating-icon icon-js" title="JavaScript"><i class="fa-brands fa-js"></i></div>
+      <div class="floating-icon icon-py" title="Python"><i class="fa-brands fa-python"></i></div>
+      <div class="floating-icon icon-re" title="React"><i class="fa-brands fa-react"></i></div>
+      <div class="floating-icon icon-nd" title="NodeJS"><i class="fa-brands fa-node-js"></i></div>
+      <div class="floating-icon icon-db" title="Database"><i class="fa-solid fa-database"></i></div>
+      <div class="floating-icon icon-code" title="Editor"><i class="fa-solid fa-code"></i></div>
+    </div>
+  </section>
+
+  <!-- STATISTICS SECTION -->
+  <section class="stats" id="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-target="50">0</span>
+        <span class="stat-label">Programming Topics</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="500">0</span>
+        <span class="stat-label">Notes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="20">0</span>
+        <span class="stat-label">Languages</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="5000">0</span>
+        <span class="stat-label">Students</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMMING LANGUAGES SECTION -->
+  <section class="languages" id="languages">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Programming <span class="gradient-text">Languages</span></h2>
+      <p class="section-subtitle">Choose from our industry-grade catalog. Get detailed notes, execution snippets, and projects for each language.</p>
+    </div>
+
+    <div class="languages-grid">
+      <!-- C -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #659ad2;"><i class="fa-solid fa-c"></i></div>
+        <h3 class="lang-name">C</h3>
+        <p class="lang-desc">The foundation of modern programming languages. Master memory allocation and pointers.</p>
+        <span class="lang-badge badge-medium">Medium</span>
+        <button class="btn btn-secondary" onclick="window.location.href='c-course.html'">Learn C</button>
+      </div>
+
+      <!-- C++ -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #00599c;"><i class="fa-solid fa-copyright"></i></div>
+        <h3 class="lang-name">C++</h3>
+        <p class="lang-desc">Powerful object-oriented language. High performance for games and systems engineering.</p>
+        <span class="lang-badge badge-hard">Hard</span>
+        <button class="btn btn-secondary" onclick="window.location.href='cpp-course.html'">Learn C++</button>
+      </div>
+
+      <!-- Java -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #ea2d2e;"><i class="fa-brands fa-java"></i></div>
+        <h3 class="lang-name">Java</h3>
+        <p class="lang-desc">Enterprise-standard language. Write once, run anywhere backends and systems.</p>
+        <span class="lang-badge badge-medium">Medium</span>
+        <button class="btn btn-secondary" onclick="window.location.href='java-course.html'">Learn Java</button>
+      </div>
+
+      <!-- Python -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #3776ab;"><i class="fa-brands fa-python"></i></div>
+        <h3 class="lang-name">Python</h3>
+        <p class="lang-desc">Easiest syntaxes for data science, automation scripts, and rapid API development.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=python'">Learn Python</button>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #f7df1e;"><i class="fa-brands fa-square-js"></i></div>
+        <h3 class="lang-name">JavaScript</h3>
+        <p class="lang-desc">The interactive heart of web apps. Power modern user interfaces and server APIs.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='javascript-masterclass.html'">Learn JS</button>
+      </div>
+
+      <!-- TypeScript -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #3178c6;"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="lang-name">TypeScript</h3>
+        <p class="lang-desc">Strictly typed superset of JavaScript. Build robust apps with structural typings.</p>
+        <span class="lang-badge badge-medium">Medium</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=typescript'">Learn TS</button>
+      </div>
+
+      <!-- HTML -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #e34f26;"><i class="fa-brands fa-html5"></i></div>
+        <h3 class="lang-name">HTML</h3>
+        <p class="lang-desc">Structure of the internet. Learn semantic structuring and metadata integrations.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='html-course.html'">Learn HTML</button>
+      </div>
+
+      <!-- CSS -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #1572b6;"><i class="fa-brands fa-css3-alt"></i></div>
+        <h3 class="lang-name">CSS</h3>
+        <p class="lang-desc">Styling and layouts. Master layouts, animations, transitions, and responsive styles.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='css-course.html'">Learn CSS</button>
+      </div>
+
+      <!-- SQL -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #00758f;"><i class="fa-solid fa-database"></i></div>
+        <h3 class="lang-name">SQL</h3>
+        <p class="lang-desc">Structured Query Language. Design, query, and manipulate relational databases.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=sql'">Learn SQL</button>
+      </div>
+
+      <!-- React -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #61dafb;"><i class="fa-brands fa-react"></i></div>
+        <h3 class="lang-name">React</h3>
+        <p class="lang-desc">Declarative component UI library. Build complex SPAs with reactive state management.</p>
+        <span class="lang-badge badge-medium">Medium</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=react'">Learn React</button>
+      </div>
+
+      <!-- NodeJS -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #68a063;"><i class="fa-brands fa-node-js"></i></div>
+        <h3 class="lang-name">Node.js</h3>
+        <p class="lang-desc">Run JavaScript outside the browser. Scalable, non-blocking asynchronous servers.</p>
+        <span class="lang-badge badge-medium">Medium</span>
+        <button class="btn btn-secondary" onclick="window.location.href='javascript-masterclass.html'">Learn Node.js</button>
+      </div>
+
+      <!-- ExpressJS -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #8c93a0;"><i class="fa-solid fa-server"></i></div>
+        <h3 class="lang-name">Express.js</h3>
+        <p class="lang-desc">Minimalist server framework for Node.js. Build RESTful APIs and middleware handles.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='javascript-masterclass.html'">Learn Express</button>
+      </div>
+
+      <!-- MongoDB -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #47a248;"><i class="fa-solid fa-leaf"></i></div>
+        <h3 class="lang-name">MongoDB</h3>
+        <p class="lang-desc">Document-based NoSQL database. Store objects as dynamic JSON-like data.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=sql'">Learn Mongo</button>
+      </div>
+
+      <!-- MySQL -->
+      <div class="lang-card glass-card">
+        <div class="lang-icon" style="color: #f29111;"><i class="fa-solid fa-cubes"></i></div>
+        <h3 class="lang-name">MySQL</h3>
+        <p class="lang-desc">Reliable relational database management system. Transactions and keys operations.</p>
+        <span class="lang-badge badge-easy">Easy</span>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html?lang=sql'">Learn MySQL</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED NOTES SECTION -->
+  <section class="notes" id="notes">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Featured <span class="gradient-text">Notes</span></h2>
+      <p class="section-subtitle">Read high-quality, structured summaries compiled by our expert developers to speed up your coding knowledge.</p>
+    </div>
+
+    <div class="notes-grid">
+      <!-- 1 -->
+      <div class="note-card glass-card">
+        <div class="note-meta">
+          <span>JavaScript</span>
+          <span>Core Concepts</span>
+        </div>
+        <h3>ES6+ Syntax & Array Methods</h3>
+        <p>Master rest/spread parameters, array destructuring, arrow scopes, map, filter, and reduce operations.</p>
+        <a href="#notes" class="btn-link" onclick="alert('Opening ES6+ notes module...')">Read Notes <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- 2 -->
+      <div class="note-card glass-card">
+        <div class="note-meta">
+          <span>Python</span>
+          <span>Algorithms</span>
+        </div>
+        <h3>Object Oriented Programming</h3>
+        <p>Understand classes, methods, inheritance structures, polymorphism, encapsulation, and magic methods.</p>
+        <a href="#notes" class="btn-link" onclick="alert('Opening Python OOP notes module...')">Read Notes <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- 3 -->
+      <div class="note-card glass-card">
+        <div class="note-meta">
+          <span>React</span>
+          <span>Frontend</span>
+        </div>
+        <h3>Custom Hooks & State Cycles</h3>
+        <p>Learn custom context, useReducer, state sharing, useEffect triggers, and functional component cleanups.</p>
+        <a href="#notes" class="btn-link" onclick="alert('Opening React Hooks notes module...')">Read Notes <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- 4 -->
+      <div class="note-card glass-card">
+        <div class="note-meta">
+          <span>SQL</span>
+          <span>Database</span>
+        </div>
+        <h3>Advanced Joins & Indexes</h3>
+        <p>Master Inner, Left, Right, Outer joins, query optimizations, indexes structures, and EXPLAIN plans.</p>
+        <a href="#notes" class="btn-link" onclick="alert('Opening SQL Joins notes module...')">Read Notes <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CODING CHALLENGES SECTION -->
+  <section class="challenges" id="challenges">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Coding <span class="gradient-text">Challenges</span></h2>
+      <p class="section-subtitle">Practice algorithmic structures asked by recruiters in technical interviews. Compile code instantly in sandbox.</p>
+    </div>
+
+    <div class="challenges-grid">
+      <!-- 1 -->
+      <div class="challenge-card glass-card">
+        <div class="challenge-header">
+          <span class="challenge-difficulty difficulty-easy">Easy</span>
+          <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-code"></i> Array</span>
+        </div>
+        <h3>Two Sum Problem</h3>
+        <p>Find two numbers in an array that add up to a specific target value. Return their indices in O(N) complexity.</p>
+        <div class="challenge-stats">
+          <span><i class="fa-regular fa-circle-check"></i> 89.2% Sub</span>
+          <span><i class="fa-regular fa-star"></i> 5.2k Likes</span>
+        </div>
+        <button class="btn btn-primary" onclick="alert('Opening coding sandbox for Two Sum...')">Solve Challenge</button>
+      </div>
+      <!-- 2 -->
+      <div class="challenge-card glass-card">
+        <div class="challenge-header">
+          <span class="challenge-difficulty difficulty-medium">Medium</span>
+          <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-code"></i> Linked List</span>
+        </div>
+        <h3>Reverse Linked List</h3>
+        <p>Reverse a singly linked list in-place. Write both iterative and recursive functions with O(1) memory footprint.</p>
+        <div class="challenge-stats">
+          <span><i class="fa-regular fa-circle-check"></i> 72.5% Sub</span>
+          <span><i class="fa-regular fa-star"></i> 3.8k Likes</span>
+        </div>
+        <button class="btn btn-primary" onclick="alert('Opening coding sandbox for Reverse Linked List...')">Solve Challenge</button>
+      </div>
+      <!-- 3 -->
+      <div class="challenge-card glass-card">
+        <div class="challenge-header">
+          <span class="challenge-difficulty difficulty-hard">Hard</span>
+          <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-code"></i> Tree Graph</span>
+        </div>
+        <h3>Binary Tree Maximum Path</h3>
+        <p>Find the maximum path sum in a binary tree. A path is defined as any sequence of nodes connected by parent-child links.</p>
+        <div class="challenge-stats">
+          <span><i class="fa-regular fa-circle-check"></i> 41.8% Sub</span>
+          <span><i class="fa-regular fa-star"></i> 4.5k Likes</span>
+        </div>
+        <button class="btn btn-primary" onclick="alert('Opening coding sandbox for Binary Tree Path...')">Solve Challenge</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVIEW QUESTIONS SECTION -->
+  <section class="interviews" id="interviews">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Interview <span class="gradient-text">Questions</span></h2>
+      <p class="section-subtitle">Review questions asked by companies like Google, Meta, Amazon, and Stripe during engineering assessments.</p>
+    </div>
+
+    <!-- Language Filter Tabs -->
+    <div class="interview-tabs" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="javascript">JavaScript</button>
+      <button class="tab-btn" data-filter="python">Python</button>
+      <button class="tab-btn" data-filter="java">Java</button>
+      <button class="tab-btn" data-filter="cpp">C++</button>
+      <button class="tab-btn" data-filter="system-design">System Design</button>
+    </div>
+
+    <div class="interviews-grid" id="interviews-grid">
+      <!-- JavaScript 1 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What is prototypal inheritance in JavaScript?</h3>
+        <p>JavaScript uses prototypes instead of classical class definitions. Objects inherit methods directly from their parent prototypes via the proto link chains.</p>
+      </div>
+      <!-- JavaScript 2 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>Explain the Event Loop and asynchronous tasks.</h3>
+        <p>The event loop monitors call stacks and callbacks. Moves callback events from message task queues to call stacks whenever execution threads become empty.</p>
+      </div>
+      <!-- Python 1 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What are Python decorators and how do they work?</h3>
+        <p>Decorators modify the behavior of a function or class. They take another function as an argument, extend its behavior without editing it directly, and return it.</p>
+      </div>
+      <!-- Python 2 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>Explain the differences between lists and tuples.</h3>
+        <p>Lists are mutable collections defined with brackets [], allowing elements to be modified. Tuples are immutable collections defined with parentheses (), offering faster execution and hash keys safety.</p>
+      </div>
+      <!-- Java 1 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>How does Garbage Collection manage memory in Java?</h3>
+        <p>Garbage Collection runs on the JVM. It identifies unreferenced objects in the heap space and deletes them automatically to reclaim system memory blocks.</p>
+      </div>
+      <!-- Java 2 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>Overloading vs Overriding in Java.</h3>
+        <p>Method overloading occurs within the same class with identical names but different argument parameters. Method overriding occurs in subclasses overriding inheritance signatures.</p>
+      </div>
+      <!-- C++ 1 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>Pointers vs References in C++.</h3>
+        <p>Pointers store the memory address of a variable, can be re-assigned, and can hold null values. References act as an alias to an existing object, cannot be null, and cannot be re-assigned once initialized.</p>
+      </div>
+      <!-- C++ 2 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>What are virtual functions and vtables in C++?</h3>
+        <p>Virtual functions allow dynamic binding. The compiler creates a virtual table (vtable) for classes containing virtual functions, routing calls to the appropriate subclass method at runtime.</p>
+      </div>
+      <!-- System Design 1 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>Explain REST API convention & HTTP methods.</h3>
+        <p>REST models resource representations. GET reads, POST creates, PUT/PATCH updates, and DELETE deletes resources. Employs JSON responses and status codes.</p>
+      </div>
+      <!-- System Design 2 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>What is load balancing and traffic routing?</h3>
+        <p>Load balancers sit between clients and server clusters, routing traffic algorithms (like Round Robin or Least Connections) to prevent server bottlenecks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING ROADMAP SECTION -->
+  <section class="roadmap" id="roadmap">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Learning <span class="gradient-text">Roadmap</span></h2>
+      <p class="section-subtitle">Follow this step-by-step path to advance from writing your first line of code to getting hired.</p>
+    </div>
+
+    <div class="roadmap-container">
+      <!-- Step 1 -->
+      <div class="roadmap-node left">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 01</span>
+          <h3>HTML</h3>
+          <p>Learn structural markup, semantic document systems, and accessibility fundamentals.</p>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="roadmap-node right">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 02</span>
+          <h3>CSS</h3>
+          <p>Master colors, grid systems, modern Flexbox architectures, and responsive variables.</p>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="roadmap-node left">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 03</span>
+          <h3>JavaScript</h3>
+          <p>Learn core programming logic: variables, asynchronous calls, loops, and DOM handles.</p>
+        </div>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="roadmap-node right purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 04</span>
+          <h3>Git & GitHub</h3>
+          <p>Learn version control structures, local commits, branching, and repository collaboration.</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="roadmap-node left purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 05</span>
+          <h3>React</h3>
+          <p>Understand modular virtual DOM programming, custom hooks, and functional components.</p>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="roadmap-node right purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 06</span>
+          <h3>Node.js</h3>
+          <p>Execute scripts outside client bounds. Write file systems controls and async scripts.</p>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="roadmap-node left">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 07</span>
+          <h3>Express</h3>
+          <p>Configure HTTP methods, customize endpoint routing structures, and write middlewares.</p>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="roadmap-node right">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 08</span>
+          <h3>MySQL</h3>
+          <p>Implement tables, configure relational links, and master join database queries.</p>
+        </div>
+      </div>
+
+      <!-- Step 9 -->
+      <div class="roadmap-node left">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 09</span>
+          <h3>MongoDB</h3>
+          <p>Map object structures to document collections and write database search pipelines.</p>
+        </div>
+      </div>
+
+      <!-- Step 10 -->
+      <div class="roadmap-node right purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 10</span>
+          <h3>REST API</h3>
+          <p>Learn resource routing conventions, JSON responses, error codes, and headers.</p>
+        </div>
+      </div>
+
+      <!-- Step 11 -->
+      <div class="roadmap-node left purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 11</span>
+          <h3>Projects</h3>
+          <p>Stitch your technologies together into complex end-to-end full stack web products.</p>
+        </div>
+      </div>
+
+      <!-- Step 12 -->
+      <div class="roadmap-node right purple-node">
+        <div class="roadmap-content glass-card">
+          <span class="roadmap-step">Step 12</span>
+          <h3>Placement Preparation</h3>
+          <p>Review system design, dry-run algorithm trees, and master mock recruiter interviews.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ SECTION -->
+  <section class="faq" id="faq">
+    <div class="section-title-wrap">
+      <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+      <p class="section-subtitle">Find answers to the most common questions about the NexoraCode platform, billing, and system requirements.</p>
+    </div>
+
+    <div class="carousel-wrapper" id="faq-carousel">
+      <button class="carousel-btn prev-btn" id="faq-prev"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="carousel-track-container" id="faq-track-container">
+        <div class="faq-container carousel-track" id="faq-track">
+          <!-- Item 1 -->
+          <div class="faq-item glass-card">
+            <button class="faq-question">
+              <span>Is NexoraCode free to use?</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              Yes, all basic notes, compiler files, roadmaps, and programming language guides are completely free to read. Advanced interview assessment simulators are available under developer license modules.
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="faq-item glass-card">
+            <button class="faq-question">
+              <span>How does local sandbox session saving work?</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              NexoraCode utilizes your local browser's LocalStorage partition registry. This ensures all compiled profiles, customized note edits, and completed challenge flags are kept private and synced on your machine.
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="faq-item glass-card">
+            <button class="faq-question">
+              <span>Can I download PDFs of cheat sheets and roadmaps?</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              Absolutely! Simply select a compiler sheet or language node and hit "Download PDF" inside the document panel to retrieve print-ready summaries.
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div class="faq-item glass-card">
+            <button class="faq-question">
+              <span>What programming languages are supported?</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              Currently, NexoraCode contains notes and compilers for 15 primary languages and frameworks, including Python, C++, Java, JavaScript, TypeScript, React, NodeJS, Express, SQL databases, and HTML/CSS web frameworks.
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn next-btn" id="faq-next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+
+
+  <!-- PREMIUM FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="footer-grid">
+      
+      <!-- Subscription Area -->
+      <div class="footer-column subscribe">
+        <div class="logo" style="margin-bottom: 12px;">
+          <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+          <span>Nexora<span class="gradient-text">Code</span></span>
+        </div>
+        <p class="footer-desc">
+          NexoraCode is a premium developer education sandbox. We are always looking to improve our platform.
+        </p>
+        <form class="subscribe-form" id="newsletter-form">
+          <input type="text" class="subscribe-input" id="sub-email" placeholder="share your feedback or review..." required>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Column 2: Programming Notes -->
+      <div class="footer-column">
+        <h4>Programming</h4>
+        <ul class="footer-links">
+          <li><a href="#languages" class="footer-link">HTML Notes</a></li>
+          <li><a href="#languages" class="footer-link">CSS Notes</a></li>
+          <li><a href="#languages" class="footer-link">JavaScript Notes</a></li>
+          <li><a href="#languages" class="footer-link">Python Notes</a></li>
+          <li><a href="#languages" class="footer-link">Java Notes</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="#roadmap" class="footer-link">Roadmaps</a></li>
+          <li><a href="#challenges" class="footer-link">Interview Questions</a></li>
+          <li><a href="#challenges" class="footer-link">Coding Challenges</a></li>
+          <li><a href="#notes" class="footer-link">Cheat Sheets</a></li>
+          <li><a href="#notes" class="footer-link">Downloads</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Quick Links -->
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home" class="footer-link">Home</a></li>
+          <li><a href="#languages" class="footer-link">Courses</a></li>
+          <li><a href="#faq" class="footer-link">About</a></li>
+          <li><a href="#footer" class="footer-link">Contact</a></li>
+          <li><a href="#" class="footer-link" onclick="alert('Demo privacy regulations apply locally.')">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom footer row -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexoraCode. All Rights Reserved.</p>
+      <p>Designed with ❤️ for Developers.</p>
+    </div>
+  </footer>
+
+  <!-- AUTHENTICATION OVERLAY MODALS (Login / Signup) -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-box glass-card">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- Login Mode Header -->
+      <div class="modal-header-wrap" id="login-header">
+        <h2>Developer Log In</h2>
+        <p>Log in with your email and password to access your dashboard.</p>
+      </div>
+
+      <!-- Register Mode Header -->
+      <div class="modal-header-wrap" id="signup-header" style="display: none;">
+        <h2>Create Account</h2>
+        <p>Create a free developer account to save your progress.</p>
+      </div>
+
+      <div class="modal-alert" id="modal-alert-box"></div>
+
+      <!-- Shared Forms wrapper -->
+      <form id="auth-form">
+        <!-- Name field (Visible only on Signup mode) -->
+        <div class="form-group" id="name-group" style="display: none;">
+          <label class="form-label" for="auth-name">Full Name</label>
+          <div class="form-input-wrap">
+            <i class="fa-regular fa-user form-icon"></i>
+            <input type="text" class="form-input-field" id="auth-name" placeholder="John Doe">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="auth-email">Email Address</label>
+          <div class="form-input-wrap">
+            <i class="fa-regular fa-envelope form-icon"></i>
+            <input type="email" class="form-input-field" id="auth-email" placeholder="name@domain.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="auth-password">Password</label>
+          <div class="form-input-wrap">
+            <i class="fa-solid fa-lock form-icon"></i>
+            <input type="password" class="form-input-field" id="auth-password" placeholder="••••••••" required style="padding-right: 40px;">
+            <i class="fa-regular fa-eye toggle-password-btn" id="toggle-auth-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); transition: var(--transition);"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="auth-submit-btn">Log In</button>
+      </form>
+
+      <!-- Toggle modes messages -->
+      <div class="modal-toggle-msg" id="toggle-message">
+        New to NexoraCode? <a href="#" id="auth-toggle-link">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=8"></script>
+</body>
+</html>

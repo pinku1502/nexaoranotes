@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexoraCode Developer Dashboard - Notes & Compiler Sandbox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="dashboard.css?v=4">
+</head>
+<body>
+
+  <!-- Background particles canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="dash-sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+          <span>Nexora<span class="gradient-text">Code</span></span>
+        </a>
+      </div>
+
+      <!-- Search bar -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="notes-search" placeholder="Search notes...">
+      </div>
+
+      <!-- Saved Files Section -->
+      <nav class="sidebar-nav" style="margin-bottom: 20px;">
+        <span class="nav-label">My Workspace</span>
+        <ul class="nav-list">
+          <li class="nav-item" id="open-file-manager" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2);">
+            <i class="fa-solid fa-folder-open" style="color: var(--primary-color);"></i>
+            <span style="font-weight: 500; color: var(--primary-color);">Saved Files</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Language List -->
+      <nav class="sidebar-nav">
+        <span class="nav-label">Core Languages</span>
+        <ul class="nav-list" id="language-list">
+          <li class="nav-item active" data-lang="javascript">
+            <i class="fa-brands fa-js" style="color: #f7df1e;"></i>
+            <span>JavaScript</span>
+          </li>
+          <li class="nav-item" data-lang="typescript">
+            <i class="fa-solid fa-shield-halved" style="color: #3178c6;"></i>
+            <span>TypeScript</span>
+          </li>
+          <li class="nav-item" data-lang="python">
+            <i class="fa-brands fa-python" style="color: #3776ab;"></i>
+            <span>Python</span>
+          </li>
+          <li class="nav-item" data-lang="c">
+            <i class="fa-solid fa-c" style="color: #659ad2;"></i>
+            <span>C</span>
+          </li>
+          <li class="nav-item" data-lang="cpp">
+            <i class="fa-solid fa-copyright" style="color: #00599c;"></i>
+            <span>C++</span>
+          </li>
+          <li class="nav-item" data-lang="java">
+            <i class="fa-brands fa-java" style="color: #ea2d2e;"></i>
+            <span>Java</span>
+          </li>
+          <li class="nav-item" data-lang="html">
+            <i class="fa-brands fa-html5" style="color: #e34f26;"></i>
+            <span>HTML</span>
+          </li>
+          <li class="nav-item" data-lang="css">
+            <i class="fa-brands fa-css3-alt" style="color: #1572b6;"></i>
+            <span>CSS</span>
+          </li>
+          <li class="nav-item" data-lang="sql">
+            <i class="fa-solid fa-database" style="color: #00758f;"></i>
+            <span>SQL Database</span>
+          </li>
+          <li class="nav-item" data-lang="react">
+            <i class="fa-brands fa-react" style="color: #61dafb;"></i>
+            <span>React JS</span>
+          </li>
+        </ul>
+
+        <div style="margin-top: 30px; margin-bottom: 10px; padding-left: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600;">
+          Management
+        </div>
+        <ul class="nav-links">
+          <li class="nav-item" data-lang="admin">
+            <i class="fa-solid fa-lock" style="color: #eab308;"></i>
+            <span>Admin Panel</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar User Footer -->
+      <div class="sidebar-footer">
+        <div class="user-avatar">DV</div>
+        <div class="user-info">
+          <span class="user-name">Guest Developer</span>
+          <span class="user-status"><i class="fa-solid fa-circle status-green"></i> Session Active</span>
+        </div>
+        <button class="logout-btn" id="logout-btn" title="Sign Out">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="dash-main">
+      <header class="dash-header">
+        <div class="header-left">
+          <h1 id="active-lang-title">JavaScript Notes</h1>
+          <span class="badge" id="active-lang-badge">Advanced</span>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="run-code-btn"><i class="fa-solid fa-play"></i> Run Code</button>
+        </div>
+      </header>
+
+      <!-- Main Panel Grid -->
+      <div class="dash-grid" id="dash-grid-workspace">
+        
+        <div class="card-column">
+          
+          <div class="editor-header">
+            <div class="editor-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            
+            <div class="editor-tabs">
+              <button class="tab-btn active" id="tab-code-btn">
+                <i class="fa-solid fa-code" style="margin-right: 6px;"></i> <span id="editor-tab-name">script.js</span>
+              </button>
+              <button class="tab-btn" id="tab-notes-btn">
+                <i class="fa-regular fa-file-lines" style="margin-right: 6px;"></i> Notes
+              </button>
+            </div>
+
+            <button class="btn btn-secondary btn-save-workspace" id="save-note-btn" title="Save Notes">
+              <i class="fa-regular fa-floppy-disk"></i> Save Workspace
+            </button>
+          </div>
+
+          <div class="workspace-split" id="workspace-split">
+            <!-- Left Panel: Notes Workspace -->
+            <div class="code-panel" id="code-panel" style="width: 100%;">
+              <div class="code-workspace">
+                <textarea id="code-textarea" spellcheck="false"></textarea>
+                <textarea id="notes-textarea" placeholder="Write your custom notes here..." spellcheck="false" style="display: none;"></textarea>
+              </div>
+            </div>
+
+            <!-- Right Panel: Terminal Output Simulator -->
+            <div class="terminal-panel" id="terminal-panel">
+              <div class="terminal-container">
+                <div class="terminal-header">
+                  <span><i class="fa-solid fa-terminal" style="margin-right: 6px;"></i> Terminal Output</span>
+                  <div style="display: flex; align-items: center;">
+                    <button class="clear-terminal" id="clear-terminal" style="margin-right: 16px;"><i class="fa-solid fa-trash-can"></i> Clear</button>
+                    <button class="close-terminal" id="close-terminal" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px;"><i class="fa-solid fa-xmark"></i></button>
+                  </div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                  <span class="terminal-prompt">nexoracode-sandbox ~ $</span> <span class="terminal-log-default">Click "Run Code" to compile snippet.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Admin Panel Grid -->
+      <div class="dash-grid" id="dash-grid-admin" style="display: none;">
+        <div class="card-column" style="background: var(--surface-light); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); width: 100%;">
+          <h2 style="margin-bottom: 20px; font-size: 1.25rem;">User Feedback & Reviews</h2>
+          <div id="admin-reviews-list" style="display: flex; flex-direction: column; gap: 15px;">
+             <!-- Reviews will be injected here -->
+             <div style="text-align: center; color: var(--text-muted); padding: 40px 0;">No reviews yet.</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- File Manager Modal -->
+  <div class="modal-overlay" id="file-manager-modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-folder-open" style="color: var(--primary-color); margin-right: 10px;"></i> Saved Workspaces</h2>
+        <button class="close-modal" id="close-file-manager"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="saved-files-list" class="saved-files-grid">
+          <!-- Files will be injected here via JS -->
+          <div style="text-align: center; color: var(--text-muted); padding: 40px 0;">No saved files yet. Click 'Save Workspace' to save your code!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js?v=21"></script>
+</body>
+</html>

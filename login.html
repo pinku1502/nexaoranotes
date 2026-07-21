@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Sign Up - NexoraCode</title>
+  <meta name="description" content="Sign in or create an account to access your developer dashboard, coding notes, and interactive compiler sandbox on NexoraCode.">
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+  <!-- Background Glows -->
+  <div class="bg-glow" style="top: 20%; left: 10%;"></div>
+  <div class="bg-glow" style="bottom: 20%; right: 10%; background: var(--accent-pink);"></div>
+
+  <div class="auth-container">
+    <div class="auth-card glass-card">
+      
+      <!-- Auth Header -->
+      <div class="auth-header">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+          <span>Nexora<span class="gradient-text">Code</span></span>
+        </a>
+      </div>
+
+      <!-- 1. LOGIN VIEW -->
+      <div id="login-view">
+        <div class="auth-header">
+          <h2>Welcome Back</h2>
+          <p>Sign in to access your developer dashboard and compiler sandbox.</p>
+        </div>
+
+        <div id="login-message" class="auth-message"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-envelope input-icon"></i>
+              <input class="form-input" type="email" id="login-email" placeholder="name@domain.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input class="form-input" type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password" style="padding-right: 40px;">
+              <i class="fa-regular fa-eye toggle-password-btn" id="toggle-login-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); transition: var(--transition);"></i>
+            </div>
+          </div>
+
+          <div class="form-links">
+            <label class="checkbox-label">
+              <input type="checkbox" style="accent-color: var(--accent-purple);"> Remember me
+            </label>
+            <a href="#" style="color: var(--text-muted);" onclick="alert('Demo feature: Use LocalStorage registration or check email database.')">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-btn">Log In</button>
+        </form>
+
+        <div class="auth-toggle">
+          Don't have an account? <a href="#" id="to-signup">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- 2. SIGN UP VIEW -->
+      <div id="signup-view" style="display: none;">
+        <div class="auth-header">
+          <h2>Create Account</h2>
+          <p>Get started with your developer compiler space and note sandbox.</p>
+        </div>
+
+        <div id="signup-message" class="auth-message"></div>
+
+        <form id="signup-form">
+          <div class="form-group">
+            <label class="form-label" for="signup-name">Full Name</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user input-icon"></i>
+              <input class="form-input" type="text" id="signup-name" placeholder="John Doe" required autocomplete="name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-envelope input-icon"></i>
+              <input class="form-input" type="email" id="signup-email" placeholder="name@domain.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input class="form-input" type="password" id="signup-password" placeholder="Min. 6 characters" required autocomplete="new-password" style="padding-right: 40px;">
+              <i class="fa-regular fa-eye toggle-password-btn" id="toggle-signup-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); transition: var(--transition);"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-shield input-icon"></i>
+              <input class="form-input" type="password" id="signup-confirm-password" placeholder="••••••••" required autocomplete="new-password" style="padding-right: 40px;">
+              <i class="fa-regular fa-eye toggle-password-btn" id="toggle-signup-confirm-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); transition: var(--transition);"></i>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-btn">Create Account</button>
+        </form>
+
+        <div class="auth-toggle">
+          Already have an account? <a href="#" id="to-login">Log In</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
