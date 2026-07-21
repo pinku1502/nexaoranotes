@@ -366,30 +366,6 @@ C compiler initialized.
 Pointers and memory structures: OK
 -------------------------------`
     },
-    typescript: {
-      title: "TypeScript Notes",
-      badge: "Intermediate",
-      file: "index.ts",
-      note: `// TypeScript Core Concepts
-- Static Typing: TS adds structural type checking to JavaScript to detect bugs early.
-- Interfaces vs. Types: Interfaces define object contracts; Types define aliases/unions.
-- Generics allow you to write reusable components that dynamically preserve type assertions.`,
-      code: `// TypeScript Compiler
-interface Developer {
-    name: string;
-    role: string;
-}
-
-const coder: Developer = { name: "Pinku", role: "Full Stack Engineer" };
-console.log("-------------------------------");
-console.log(\`Developer: \${coder.name}\`);
-console.log(\`Role: \${coder.role}\`);
-console.log("-------------------------------");`,
-      output: `-------------------------------
-Developer: Pinku
-Role: Full Stack Engineer
--------------------------------`
-    },
     html: {
       title: "HTML Notes",
       badge: "Masterclass",
@@ -526,10 +502,18 @@ Layout rendering: Successful [0 warnings]`
     let iconClass = 'fa-brands fa-js';
     let iconColor = '#f7df1e';
 
-    if (langKey === 'python') { iconClass = 'fa-brands fa-python'; iconColor = '#3776ab'; }
+    if (langKey === 'typescript') {
+        window.location.href = 'typescript-course.html';
+        return;
+      }
+      if (langKey === 'python') { iconClass = 'fa-brands fa-python'; iconColor = '#3776ab'; }
     else if (langKey === 'react') { iconClass = 'fa-brands fa-react'; iconColor = '#61dafb'; }
     else if (langKey === 'sql') { iconClass = 'fa-solid fa-database'; iconColor = '#00758f'; }
-    else if (langKey === 'python') {
+    else if (langKey === 'typescript') {
+        window.location.href = 'typescript-course.html';
+        return;
+      }
+      if (langKey === 'python') {
         window.location.href = 'python-course.html';
         return;
       }
@@ -575,6 +559,10 @@ Layout rendering: Successful [0 warnings]`
           window.location.href = 'javascript-masterclass.html';
           return;
         }
+      if (langKey === 'typescript') {
+        window.location.href = 'typescript-course.html';
+        return;
+      }
       if (langKey === 'python') {
         window.location.href = 'python-course.html';
         return;
@@ -615,7 +603,8 @@ Layout rendering: Successful [0 warnings]`
   const urlParams = new URLSearchParams(window.location.search);
   const urlLang = urlParams.get('lang');
   
-  if (urlLang === 'python') window.location.href = 'python-course.html';
+  if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
+    else if (urlLang === 'python') window.location.href = 'python-course.html';
     else if (urlLang === 'java') window.location.href = 'java-course.html';
   else if (urlLang === 'html') window.location.href = 'html-course.html';
   else if (urlLang === 'css') window.location.href = 'css-course.html';
