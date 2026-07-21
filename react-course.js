@@ -717,9 +717,10 @@ const StrictButton: React.FC<ButtonProps> = ({ text, isActive, onClick }) => {
     navLinksList.innerHTML = navHtml;
     notesContainer.innerHTML = contentHtml;
 
-    // Scroll Spy & Active Nav
+        // Scroll Spy & Active Nav with Auto-Scroll Sidebar
     const sections = document.querySelectorAll('.course-section');
     const navItems = document.querySelectorAll('.nav-links a');
+    let lastActive = '';
 
     window.addEventListener('scroll', () => {
         let current = '';
@@ -730,13 +731,19 @@ const StrictButton: React.FC<ButtonProps> = ({ text, isActive, onClick }) => {
             }
         });
 
-        navItems.forEach(a => {
-            a.classList.remove('active');
-            if (a.getAttribute('href').includes(current)) {
-                a.classList.add('active');
-            }
-        });
+        if (current !== lastActive) {
+            lastActive = current;
+            navItems.forEach(a => {
+                a.classList.remove('active');
+                if (current && a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                    // Automatically scroll the sidebar so the active item is always visible
+                    a.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }
     });
+
 
     // Mobile Sidebar Toggle
     const mobileToggle = document.getElementById('mobile-toggle');
