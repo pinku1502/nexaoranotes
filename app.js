@@ -516,7 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (langKey === 'c++') langKey = 'cpp';
         else if (langKey === 'react js' || langKey === 'react') langKey = 'react';
         else if (langKey === 'sql') langKey = 'sql';
-        else if (langKey === 'nodejs') langKey = 'javascript';
+                  else if (langKey === 'nodejs' || langKey === 'node.js') langKey = 'nodejs';
+
         
         window.location.href = 'dashboard.html?lang=' + langKey;
       } else {

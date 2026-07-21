@@ -545,7 +545,11 @@ Layout rendering: Successful [0 warnings]`
       if (!langKey) return; // Prevent setting activeLang to null when clicking 'Saved Files'
 
       
-        // Redirect to the dedicated HTML, CSS, C, or C++ notes page if clicked
+              if (langKey === 'node' || langKey === 'nodejs' || langKey === 'node.js') {
+        window.location.href = 'nodejs-course.html';
+        return;
+      }
+// Redirect to the dedicated HTML, CSS, C, or C++ notes page if clicked
         if (langKey === 'react') {
         window.location.href = 'react-course.html';
         return;
@@ -606,7 +610,8 @@ Layout rendering: Successful [0 warnings]`
   const urlParams = new URLSearchParams(window.location.search);
   const urlLang = urlParams.get('lang');
   
-  if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
+      else if (urlLang === 'nodejs' || urlLang === 'node.js') window.location.href = 'nodejs-course.html';
+if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
             else if (urlLang === 'react') window.location.href = 'react-course.html';
     else if (urlLang === 'sql') window.location.href = 'sql-course.html';
     else if (urlLang === 'mysql') window.location.href = 'mysql-course.html';
