@@ -379,7 +379,7 @@ const token = jwt.sign(
         }
     ];
 
-    const navLinksList = document.getElementById('nav-links-list');
+    const navLinksList = document.getElementById('table-of-contents');
     const notesContainer = document.getElementById('notes-container');
 
     let navHtml = '';
