@@ -787,9 +787,183 @@ const StrictButton: React.FC<ButtonProps> = ({ text, isActive, onClick }) => {
 <li><strong>Admin Dashboard:</strong> Master Chart.js integration, Data Tables, and Authentication/Protected Routes.</li>
 </ul>
 
-<p><strong><em>End of React Masterclass</strong></em></p>\n`
+<p><strong><em>End of React Masterclass</strong></em></p>
+
+<p>---</p>\n`
+        },
+        {
+            id: 'ch62',
+            title: '🌟 Module 13: Advanced Features',
+            content: `\n<p>#</p>\n`
+        },
+        {
+            id: 'ch63',
+            title: '1. Custom Hooks',
+            content: `\n<p>If you find yourself writing the exact same <code>useState</code> and <code>useEffect</code> logic in 5 different components (like a timer, fetching window dimensions, or handling form inputs), you can extract that logic into your own custom, reusable Hook! <br>Custom hooks MUST start with the word <code>use</code>.</p>
+
+<pre><code>// 1. Building our own custom hook to track the window size!
+import { useState, useEffect } from 'react';
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup the event listener!
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return width; // We simply return the piece of state!
+}
+
+// 2. Using the custom hook in ANY component instantly:
+const App = () => {
+  const width = useWindowWidth();
+  return <h1>The window is exactly {width}px wide right now!</h1>;
+};
+</code></pre>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch64',
+            title: '2. Higher Order Components (HOC)',
+            content: `\n<p>An advanced, older pattern where a function takes a Component as an argument, and returns a brand new, "upgraded" Component with extra props injected into it. While mostly replaced by Custom Hooks today, it is still heavily asked in senior interviews and used in some third-party libraries.</p>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch65',
+            title: '3. Environment Variables (.env)',
+            content: `\n<p><strong>CRITICAL SECURITY RULE:</strong> Never hardcode API Keys, database passwords, or secret tokens directly into your React code! React compiles your code into plain JavaScript that anyone can read by simply pressing F12 and opening the network tab.<br>In Vite, you create a hidden <code>.env</code> file at the root of your project:</p>
+
+<pre><code># Only variables prefixed with VITE_ are exposed to your React code
+VITE_STRIPE_PUBLIC_KEY=pk_test_12345
+</code></pre>
+
+<p>You securely access it anywhere in your React code using: <code>import.meta.env.VITE_STRIPE_PUBLIC_KEY</code>.</p>
+
+<p>---</p>\n`
+        },
+        {
+            id: 'ch66',
+            title: '🚀 Module 14: React with TypeScript',
+            content: `\n<p>JavaScript is "Loosely Typed", meaning a variable can be a String one second, and an Array the next. This causes thousands of runtime crashes when a component expects a string but accidentally receives an object.<br><strong>TypeScript</strong> acts as an impenetrable armor for React, forcing you to define exactly what your props and state look like <em>before</em> the code is even allowed to compile.</p>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch67',
+            title: '1. Typing Props, State, and Events',
+            content: `\n<pre><code>import React, { useState } from 'react';
+
+// 1. Define exactly what the Props must look like using an Interface!
+interface ButtonProps {
+    text: string;
+    isActive: boolean;
+    // A function that takes no arguments and returns nothing
+    onClick: () => void; 
+}
+
+// 2. Attach the Interface to the Component. 
+// If another developer forgets to pass 'isActive', their code will NOT compile!
+const StrictButton: React.FC<ButtonProps> = ({ text, isActive, onClick }) => {
+    return (
+        <button onClick={onClick} className={isActive ? 'btn-active' : 'btn-idle'}>
+            {text}
+        </button>
+    );
+};
+
+// 3. Typing State
+const Counter = () => {
+    // Force the state to be either a number OR null. Nothing else is allowed!
+    const [count, setCount] = useState<number | null>(0);
+    return <div>{count}</div>;
+};
+
+// 4. Typing Events
+const Form = () => {
+    // Specifically type the event as a Form Submission Event
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    };
+    return <form onSubmit={handleSubmit}></form>;
+};
+</code></pre>
+
+<p>---</p>\n`
+        },
+        {
+            id: 'ch68',
+            title: '📝 Module 15: Practice & Mastery',
+            content: `\n<p>To truly master React, you cannot just read notes. You must build components from scratch until the hooks become pure muscle memory.</p>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch69',
+            title: '1. Practice Exercises',
+            content: `\n<ul>
+<li><strong>Props Practice:</strong> Build a reusable <code>ProfileCard</code> component that accepts <code>title</code>, <code>description</code>, and <code>imageUrl</code> props. Render 3 different cards in your App.</li>
+<li><strong>State Practice:</strong> Build a Toggle switch that changes the background color of the entire screen from Light Mode to Dark Mode, and changes the button text from "Dark" to "Light".</li>
+<li><strong>API Practice:</strong> Use <code>useEffect</code>, <code>useState</code>, and Axios to fetch 10 random user profiles from <code>https://randomuser.me/api/?results=10</code> and display them in a grid. Make sure to implement a Loading spinner while waiting for the data!</li>
+<li><strong>Routing Practice:</strong> Build a NavBar with 3 links (Home, About, Contact). Setup React Router to navigate between them without reloading the page. Ensure the active link turns blue.</li>
+</ul>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch70',
+            title: '2. Common React Interview Questions',
+            content: `\n<p><em>   </em>What is the Virtual DOM and how does the reconciliation algorithm work?*<br><em>   </em>What is the fundamental difference between Prop Drilling and the Context API?*<br><em>   </em>Why can't you update State directly (e.g., <code>count = 2</code>)? What happens under the hood when you call <code>setCount()</code>?*<br><em>   </em>What is the purpose of the Dependency Array in useEffect? What happens if you forget it?*<br><em>   </em>What is the strict difference between useMemo and useCallback?*<br><em>   </em>How do you handle memory leaks in React when a component unmounts?*</p>
+
+<p>---</p>\n`
+        },
+        {
+            id: 'ch71',
+            title: '💻 Module 16: Projects',
+            content: `\n<p>Building real-world projects is the only way to bridge the gap between "knowing syntax" and "being a professional developer". Start small, and work your way up to enterprise architecture.</p>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch72',
+            title: 'Beginner Projects (Focus on Core Hooks)',
+            content: `\n<ul>
+<li><strong>Counter App:</strong> Master <code>useState</code> and simple event handlers.</li>
+<li><strong>To-Do App:</strong> Master Arrays in State, the <code>.map()</code> function, filtering arrays, and generating unique keys.</li>
+<li><strong>Weather App:</strong> Master API Fetching using Axios, handling Promises, and <code>useEffect</code>.</li>
+</ul>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch73',
+            title: 'Intermediate Projects (Focus on Architecture)',
+            content: `\n<ul>
+<li><strong>Movie Search App:</strong> Master Search input filtering, debouncing inputs to prevent API spam, and handling empty states (404 Not Found).</li>
+<li><strong>Expense Tracker:</strong> Master complex state management, passing callbacks up to parents, and complex mathematical aggregations using <code>.reduce()</code>.</li>
+<li><strong>Quiz App:</strong> Master multi-step conditional state rendering, scoring logic, and component unmounting.</li>
+</ul>
+
+<p>#</p>\n`
+        },
+        {
+            id: 'ch74',
+            title: 'Advanced Projects (Portfolio Ready)',
+            content: `\n<ul>
+<li><strong>E-commerce Website:</strong> Master Redux Toolkit, React Router, global Cart State management, integrating a payment gateway (Stripe), and JWT Authentication.</li>
+<li><strong>Social Media UI:</strong> Master complex Context API structures, deeply nested routing, infinite scrolling pagination, and optimistic UI updates.</li>
+<li><strong>Admin Dashboard:</strong> Master Chart.js integration, complex Data Tables with sorting and pagination, and highly Protected Routes that kick out unauthenticated users.</li>
+</ul>
+
+<p><strong><em>End of the Ultimate React Masterclass</strong></em></p>\n`
         }
     ];
+
 
 
 
