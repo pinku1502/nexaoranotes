@@ -422,7 +422,7 @@ Layout rendering: Successful [0 warnings]`
   // Load language workspace content
   
     const loadLanguageContent = (langKey) => {
-      if (langKey === 'sql' || langKey === 'mysql') {
+      if (langKey === 'mysql') {
         window.location.href = 'mysql-course.html';
         return;
       }
@@ -518,7 +518,7 @@ Layout rendering: Successful [0 warnings]`
     const savedNote = localStorage.getItem(`nexoracode_note_${langKey}`);
     const savedCode = localStorage.getItem(`nexoracode_code_${langKey}`);
 
-    if (langKey === 'sql' || langKey === 'mysql') {
+    if (langKey === 'mysql') {
         window.location.href = 'mysql-course.html';
         return;
       }
@@ -544,7 +544,7 @@ Layout rendering: Successful [0 warnings]`
 
       
         // Redirect to the dedicated HTML, CSS, C, or C++ notes page if clicked
-        if (langKey === 'sql' || langKey === 'mysql') {
+        if (langKey === 'mysql') {
         window.location.href = 'mysql-course.html';
         return;
       }
@@ -597,7 +597,7 @@ Layout rendering: Successful [0 warnings]`
   const urlLang = urlParams.get('lang');
   
   if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
-    else if (urlLang === 'sql' || urlLang === 'mysql') window.location.href = 'mysql-course.html';
+    else if (urlLang === 'mysql') window.location.href = 'mysql-course.html';
 
     else if (urlLang === 'python') window.location.href = 'python-course.html';
     else if (urlLang === 'java') window.location.href = 'java-course.html';
