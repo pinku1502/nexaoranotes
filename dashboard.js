@@ -287,25 +287,6 @@ App();`,
       output: `React Virtual Dom Rendering...
 Active state route is set to: Home`
     },
-    sql: {
-      title: "SQL Notes",
-      badge: "Easy",
-      file: "query.sql",
-      note: `-- SQL Query & Relational Database Notes
-- Relational joins retrieve links: INNER JOIN overlaps records, LEFT JOIN retains all left records, and RIGHT JOIN retains right records.
-- Query speed is significantly improved by creating INDEX maps over frequently queried columns.`,
-      code: `-- SQL Database simulation queries
-SELECT u.id, u.username, p.points
-FROM users u
-INNER JOIN profiles p ON u.profile_id = p.id
-WHERE p.points > 1000
-ORDER BY p.points DESC;`,
-      output: `Parsing query...
-Executing JOIN user matching records...
-Outputting 3 rows matching points > 1000.
-[Row 1] ID: 104, User: CoderBob, Points: 2040
-[Row 2] ID: 110, User: NexaGirl, Points: 1980`
-    },
     java: {
       title: "Java Notes",
       badge: "Hard",
@@ -441,6 +422,10 @@ Layout rendering: Successful [0 warnings]`
   // Load language workspace content
   
     const loadLanguageContent = (langKey) => {
+      if (langKey === 'sql' || langKey === 'mysql') {
+        window.location.href = 'mysql-course.html';
+        return;
+      }
       if (langKey === 'javascript') {
         window.location.href = 'javascript-masterclass.html';
         return;
@@ -533,7 +518,11 @@ Layout rendering: Successful [0 warnings]`
     const savedNote = localStorage.getItem(`nexoracode_note_${langKey}`);
     const savedCode = localStorage.getItem(`nexoracode_code_${langKey}`);
 
-    if (langKey === 'javascript') {
+    if (langKey === 'sql' || langKey === 'mysql') {
+        window.location.href = 'mysql-course.html';
+        return;
+      }
+      if (langKey === 'javascript') {
       notesTextarea.value = data.note;
     } else {
       notesTextarea.value = savedNote !== null ? savedNote : data.note;
@@ -555,7 +544,11 @@ Layout rendering: Successful [0 warnings]`
 
       
         // Redirect to the dedicated HTML, CSS, C, or C++ notes page if clicked
-        if (langKey === 'javascript') {
+        if (langKey === 'sql' || langKey === 'mysql') {
+        window.location.href = 'mysql-course.html';
+        return;
+      }
+      if (langKey === 'javascript') {
           window.location.href = 'javascript-masterclass.html';
           return;
         }
@@ -604,6 +597,8 @@ Layout rendering: Successful [0 warnings]`
   const urlLang = urlParams.get('lang');
   
   if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
+    else if (urlLang === 'sql' || urlLang === 'mysql') window.location.href = 'mysql-course.html';
+
     else if (urlLang === 'python') window.location.href = 'python-course.html';
     else if (urlLang === 'java') window.location.href = 'java-course.html';
   else if (urlLang === 'html') window.location.href = 'html-course.html';
