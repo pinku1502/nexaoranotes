@@ -269,26 +269,6 @@ Developer: Nexa Coder
 Access Tier: Premium Elite
 -------------------------------`
     },
-    python: {
-      title: "Python Notes",
-      badge: "Easy",
-      file: "script.py",
-      note: `# Python OOP & Algorithmic Notes
-- Python supports multiple inheritance structures, namespaces, and magic operator overloading.
-- Classes are instantiated with parenthesis and constructors employ the 'self' identifier reference.
-- Decorators modify function behavior. They are written using the @ symbol prefixing targeted functions.`,
-      code: `# Python Code Sandbox Compiler
-class NexoraCode:
-    def __init__(self, name):
-        self.name = name
-
-    def compile(self):
-        return f"Compiling workspace for: {self.name}..."
-
-workspace = NexoraCode("Sandbox-Py")
-print(workspace.compile())`,
-      output: `Compiling workspace for: Sandbox-Py...`
-    },
     react: {
       title: "React JS Notes",
       badge: "Intermediate",
@@ -549,7 +529,11 @@ Layout rendering: Successful [0 warnings]`
     if (langKey === 'python') { iconClass = 'fa-brands fa-python'; iconColor = '#3776ab'; }
     else if (langKey === 'react') { iconClass = 'fa-brands fa-react'; iconColor = '#61dafb'; }
     else if (langKey === 'sql') { iconClass = 'fa-solid fa-database'; iconColor = '#00758f'; }
-    else if (langKey === 'java') { iconClass = 'fa-brands fa-java'; iconColor = '#ea2d2e'; }
+    else if (langKey === 'python') {
+        window.location.href = 'python-course.html';
+        return;
+      }
+      if (langKey === 'java') { iconClass = 'fa-brands fa-java'; iconColor = '#ea2d2e'; }
     else if (langKey === 'cpp') { iconClass = 'fa-solid fa-copyright'; iconColor = '#00599c'; }
     else if (langKey === 'c') { iconClass = 'fa-solid fa-c'; iconColor = '#659ad2'; }
     else if (langKey === 'typescript') { iconClass = 'fa-solid fa-shield-halved'; iconColor = '#3178c6'; }
@@ -591,6 +575,10 @@ Layout rendering: Successful [0 warnings]`
           window.location.href = 'javascript-masterclass.html';
           return;
         }
+      if (langKey === 'python') {
+        window.location.href = 'python-course.html';
+        return;
+      }
       if (langKey === 'java') {
         window.location.href = 'java-course.html';
         return;
@@ -627,7 +615,8 @@ Layout rendering: Successful [0 warnings]`
   const urlParams = new URLSearchParams(window.location.search);
   const urlLang = urlParams.get('lang');
   
-  if (urlLang === 'java') window.location.href = 'java-course.html';
+  if (urlLang === 'python') window.location.href = 'python-course.html';
+    else if (urlLang === 'java') window.location.href = 'java-course.html';
   else if (urlLang === 'html') window.location.href = 'html-course.html';
   else if (urlLang === 'css') window.location.href = 'css-course.html';
   else if (urlLang === 'c') window.location.href = 'c-course.html';
