@@ -269,24 +269,6 @@ Developer: Nexa Coder
 Access Tier: Premium Elite
 -------------------------------`
     },
-    react: {
-      title: "React JS Notes",
-      badge: "Intermediate",
-      file: "Component.jsx",
-      note: `// React Hooks & Lifecycle notes
-- Components are functional modules. Render virtual nodes using JSX markup.
-- Hooks (useState, useEffect, useContext) let you share state patterns natively.
-- Minimize re-renders by wrapping calculations in useMemo or dependencies.`,
-      code: `// React Component simulation
-function App() {
-  const activeTab = "Home";
-  console.log("React Virtual Dom Rendering...");
-  console.log(\`Active state route is set to: \${activeTab}\`);
-}
-App();`,
-      output: `React Virtual Dom Rendering...
-Active state route is set to: Home`
-    },
     java: {
       title: "Java Notes",
       badge: "Hard",
@@ -422,6 +404,10 @@ Layout rendering: Successful [0 warnings]`
   // Load language workspace content
   
     const loadLanguageContent = (langKey) => {
+      if (langKey === 'react') {
+        window.location.href = 'react-course.html';
+        return;
+      }
       if (langKey === 'sql') {
         window.location.href = 'sql-course.html';
         return;
@@ -497,7 +483,11 @@ Layout rendering: Successful [0 warnings]`
       }
       if (langKey === 'python') { iconClass = 'fa-brands fa-python'; iconColor = '#3776ab'; }
     else if (langKey === 'react') { iconClass = 'fa-brands fa-react'; iconColor = '#61dafb'; }
-    else if (langKey === 'sql') { iconClass = 'fa-solid fa-database'; iconColor = '#00758f'; }
+    else if (langKey === 'react') {
+        window.location.href = 'react-course.html';
+        return;
+      }
+      if (langKey === 'sql') { iconClass = 'fa-solid fa-database'; iconColor = '#00758f'; }
     else if (langKey === 'typescript') {
         window.location.href = 'typescript-course.html';
         return;
@@ -522,7 +512,11 @@ Layout rendering: Successful [0 warnings]`
     const savedNote = localStorage.getItem(`nexoracode_note_${langKey}`);
     const savedCode = localStorage.getItem(`nexoracode_code_${langKey}`);
 
-    if (langKey === 'sql') {
+    if (langKey === 'react') {
+        window.location.href = 'react-course.html';
+        return;
+      }
+      if (langKey === 'sql') {
         window.location.href = 'sql-course.html';
         return;
       }
@@ -552,7 +546,11 @@ Layout rendering: Successful [0 warnings]`
 
       
         // Redirect to the dedicated HTML, CSS, C, or C++ notes page if clicked
-        if (langKey === 'sql') {
+        if (langKey === 'react') {
+        window.location.href = 'react-course.html';
+        return;
+      }
+      if (langKey === 'sql') {
         window.location.href = 'sql-course.html';
         return;
       }
@@ -609,7 +607,8 @@ Layout rendering: Successful [0 warnings]`
   const urlLang = urlParams.get('lang');
   
   if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
-        else if (urlLang === 'sql') window.location.href = 'sql-course.html';
+            else if (urlLang === 'react') window.location.href = 'react-course.html';
+    else if (urlLang === 'sql') window.location.href = 'sql-course.html';
     else if (urlLang === 'mysql') window.location.href = 'mysql-course.html';
 
     else if (urlLang === 'python') window.location.href = 'python-course.html';
