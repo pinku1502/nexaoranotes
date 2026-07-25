@@ -19,13 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // Replace Log In / Create Account with Welcome message and Log Out button
-    navActions.innerHTML = `
-      <span class="user-welcome" style="margin-right: 12px; font-size: 13.5px; font-weight: 500; color: var(--text-gray);">
+    // Replace Log In / Create Account with Welcome message and Log Out button without touching the search bar
+    const loginBtn = document.getElementById('open-login-btn');
+    const signupBtn = document.getElementById('open-signup-btn');
+    if (loginBtn) loginBtn.remove();
+    if (signupBtn) signupBtn.remove();
+    
+    navActions.insertAdjacentHTML('beforeend', `
+      <span class="user-welcome" style="margin-left: 12px; margin-right: 12px; font-size: 13.5px; font-weight: 500; color: var(--text-gray);">
         Welcome, <span class="gradient-text" style="font-weight: 600;">${displayName}</span>!
       </span>
       <button class="btn btn-secondary" id="home-logout-btn" style="padding: 10px 16px; font-size: 13px;">Log Out</button>
-    `;
+    `);
     
     // Add logout action
     const homeLogoutBtn = document.getElementById('home-logout-btn');
@@ -406,60 +411,52 @@ document.addEventListener('DOMContentLoaded', () => {
       modalAlertBox.textContent = '';
       modalAlertBox.style.display = 'none';
 
-      // Load existing users registry
-      const getUsers = () => {
-        const users = localStorage.getItem('auraUsersRegistry');
-        return users ? JSON.parse(users) : [];
-      };
-
-      const saveUsers = (users) => {
-        localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
-      };
-
-      const users = getUsers();
-
       if (isSignupMode) {
-        if (!name) {
-          showAlert('Please enter your developer name.', 'error');
-          return;
-        }
-        if (password.length < 6) {
-          showAlert('Password must be at least 6 characters long.', 'error');
-          return;
-        }
+        if (!name) return showAlert('Please enter your developer name.', 'error');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) return showAlert('Please enter a valid email address.', 'error');
+        if (password.length < 6) return showAlert('Password must be at least 6 characters long.', 'error');
 
-        const userExists = users.some(u => u.email === email);
-        if (userExists) {
-          showAlert('An account with this email already exists.', 'error');
-          return;
-        }
-
-        // Register new user
-        const newUser = { name, email, password };
-        users.push(newUser);
-        saveUsers(users);
-
-        showAlert(`Welcome to NexoraCode, ${name}! Redirecting to sandbox...`, 'success');
-        localStorage.setItem('auraUserLoggedIn', 'true');
-        localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
+        fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password })
+        })
+        .then(res => res.json().then(data => ({ status: res.status, body: data })))
+        .then(({ status, body }) => {
+            if (status === 201) {
+                showAlert(`Welcome to NexoraCode, ${name}! Redirecting to sandbox...`, 'success');
+                localStorage.setItem('auraUserLoggedIn', 'true');
+                localStorage.setItem('auraCurrentUser', JSON.stringify({ name: body.name, email: body.email }));
+                setTimeout(() => { closeModal(); window.location.reload(); }, 1500);
+            } else {
+                showAlert(body.error || 'Registration failed.', 'error');
+            }
+        })
+        .catch(err => showAlert('Network error. Is the server running?', 'error'));
+        
       } else {
-        // Authenticate login (Auto-register for demo purposes if not found)
-        let user = users.find(u => u.email === email && u.password === password);
-        if (!user) {
-          user = { name: email.split('@')[0], email: email, password: password };
-          users.push(user);
-          saveUsers(users);
-        }
-
-        showAlert(`Session authorized! Opening compiler space...`, 'success');
-        localStorage.setItem('auraUserLoggedIn', 'true');
-        localStorage.setItem('auraCurrentUser', JSON.stringify({ name: user.name, email: user.email }));
+        // Authenticate login
+        if (!email || !password) return showAlert('Please provide email and password.', 'error');
+        
+        fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(res => res.json().then(data => ({ status: res.status, body: data })))
+        .then(({ status, body }) => {
+            if (status === 200) {
+                showAlert(`Session authorized! Opening compiler space...`, 'success');
+                localStorage.setItem('auraUserLoggedIn', 'true');
+                localStorage.setItem('auraCurrentUser', JSON.stringify({ name: body.user.name, email: body.user.email }));
+                setTimeout(() => { closeModal(); window.location.reload(); }, 1500);
+            } else {
+                showAlert(body.error || 'Invalid credentials.', 'error');
+            }
+        })
+        .catch(err => showAlert('Network error. Is the server running?', 'error'));
       }
-
-      setTimeout(() => {
-        closeModal();
-        window.location.reload();
-      }, 1500);
     });
   }
 
@@ -478,25 +475,50 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================================================
-  // 8. FEEDBACK FORM SUBMIT
+  // 8. FEEDBACK FORM SUBMIT (API Integration)
   // ==========================================================================
   const newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const emailInput = document.getElementById('sub-email');
-      const email = emailInput.value.trim();
-      if (email) {
-        // Save to localStorage
-        const existingReviews = JSON.parse(localStorage.getItem('auraReviews') || '[]');
-        existingReviews.push({
-          text: email,
-          date: new Date().toISOString()
-        });
-        localStorage.setItem('auraReviews', JSON.stringify(existingReviews));
+      const text = emailInput.value.trim();
+      
+      if (text) {
+        const currentUser = JSON.parse(localStorage.getItem('auraCurrentUser') || '{}');
+        const isLoggedIn = localStorage.getItem('auraUserLoggedIn') === 'true';
 
-        alert('Thank you for your feedback! We appreciate you taking the time to share your review: "' + email + '"');
-        newsletterForm.reset();
+        const payload = {
+          text: text,
+          user_name: isLoggedIn && currentUser.name ? currentUser.name : 'Anonymous',
+          user_email: isLoggedIn && currentUser.email ? currentUser.email : 'Not logged in'
+        };
+
+        const btn = newsletterForm.querySelector('button');
+        const oldText = btn.textContent;
+        btn.textContent = 'Sending...';
+
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(res => {
+            if(res.ok) {
+                emailInput.value = '';
+                btn.textContent = '✅ Submitted!';
+                btn.style.background = '#10b981';
+                setTimeout(() => { btn.textContent = oldText; btn.style.background = ''; }, 2500);
+            } else {
+                btn.textContent = '❌ Error';
+                setTimeout(() => { btn.textContent = oldText; }, 2500);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            btn.textContent = '❌ Error';
+            setTimeout(() => { btn.textContent = oldText; }, 2500);
+        });
       }
     });
   }
@@ -504,24 +526,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 9. DASHBOARD BUTTONS REDIRECT INTERCEPTOR
   // ==========================================================================
-  // Clicking anywhere on a language card redirects to the dashboard
+  // Clicking anywhere on a language card redirects directly to its course notes
   document.querySelectorAll('.lang-card').forEach(card => {
     card.addEventListener('click', () => {
-      const langNameEl = card.querySelector('.lang-name');
-      if (langNameEl) {
-        let langKey = langNameEl.textContent.toLowerCase().trim();
-        // Map display names to dashboard database keys
-        if (langKey === 'js') langKey = 'javascript';
-        else if (langKey === 'ts') langKey = 'typescript';
-        else if (langKey === 'c++') langKey = 'cpp';
-        else if (langKey === 'react js' || langKey === 'react') langKey = 'react';
-        else if (langKey === 'sql') langKey = 'sql';
-                  else if (langKey === 'nodejs' || langKey === 'node.js') langKey = 'nodejs';
-
-        
-        window.location.href = 'dashboard.html?lang=' + langKey;
-      } else {
-        window.location.href = 'dashboard.html';
+      const target = card.getAttribute('data-target');
+      if (target) {
+        window.location.href = target;
       }
     });
   });
@@ -627,5 +637,108 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(updateCarousel, 100);
   };
 
-  setupCarousel('roadmap-track', 'roadmap-prev', 'roadmap-next');
+  // setupCarousel('roadmap-track', 'roadmap-prev', 'roadmap-next'); // Removed: Roadmap is not a carousel
   setupCarousel('faq-track', 'faq-prev', 'faq-next');
+  setupCarousel('faq-track', 'faq-prev', 'faq-next');
+
+// Global Mock Google Login Function
+window.mockGoogleLogin = () => {
+  // Show some visual feedback
+  const buttons = document.querySelectorAll('.google-btn');
+  buttons.forEach(btn => {
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+  });
+
+  setTimeout(() => {
+    const users = JSON.parse(localStorage.getItem('auraUsersRegistry') || '[]');
+    const googleUser = {
+      name: "Google User",
+      email: "googleuser@gmail.com",
+      password: "google_oauth_mock_password"
+    };
+
+    // Check if google user already exists
+    const exists = users.find(u => u.email === googleUser.email);
+    if (!exists) {
+      users.push(googleUser);
+      localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
+    }
+
+    // Log them in
+    localStorage.setItem('auraUserLoggedIn', 'true');
+    localStorage.setItem('auraCurrentUser', JSON.stringify({ name: googleUser.name, email: googleUser.email }));
+
+    // Redirect to dashboard or reload
+    window.location.href = window.location.pathname.includes('login.html') ? 'dashboard.html' : window.location.href;
+  }, 1200);
+};
+
+// Admin Login Prompt
+window.promptAdminLogin = () => {
+  const adminId = prompt("🛡️ Enter Admin ID:");
+  if (!adminId) return;
+  if (adminId === "admin@nexaora.com") {
+    const adminPass = prompt("🔒 Enter Admin Password:");
+    if (adminPass === "admin123") {
+      localStorage.setItem('auraAdminLoggedIn', 'true');
+      window.location.href = 'admin.html';
+    } else {
+      alert("❌ Invalid Admin Password.");
+    }
+  } else {
+    alert("❌ Invalid Admin ID.");
+  }
+};
+
+  // ==========================================================================
+  // 10. GLOBAL SEARCH FUNCTIONALITY
+  // ==========================================================================
+  const searchInput = document.getElementById('global-search');
+  const searchResults = document.getElementById('search-results');
+  
+  if (searchInput && searchResults) {
+    const courseIndex = [
+      { title: 'HTML Basics', desc: 'Learn structural markup and semantics.', url: 'html-course.html' },
+      { title: 'CSS Flexbox & Grid', desc: 'Master modern layouts and responsive design.', url: 'css-course.html' },
+      { title: 'JavaScript Logic', desc: 'Variables, loops, arrays, and async JS.', url: 'javascript-course.html' },
+      { title: 'Python for Data', desc: 'Automation, APIs, and data science basics.', url: 'python-course.html?v=2' },
+      { title: 'React Components', desc: 'Virtual DOM, hooks, and state management.', url: 'react-course.html?v=2' },
+      { title: 'Node.js Backend', desc: 'File systems, servers, and asynchronous I/O.', url: 'nodejs-course.html' },
+      { title: 'SQL Queries', desc: 'Relational databases, joins, and schemas.', url: 'sql-course.html?v=2' }
+    ];
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      
+      if (query.length < 2) {
+        searchResults.classList.remove('active');
+        return;
+      }
+
+      const results = courseIndex.filter(item => 
+        item.title.toLowerCase().includes(query) || 
+        item.desc.toLowerCase().includes(query)
+      );
+
+      if (results.length > 0) {
+        searchResults.innerHTML = results.map(item => `
+          <div class="search-result-item" onclick="window.location.href='${item.url}'">
+            <div class="search-result-title">${item.title}</div>
+            <div class="search-result-desc">${item.desc}</div>
+          </div>
+        `).join('');
+        searchResults.classList.add('active');
+      } else {
+        searchResults.innerHTML = '<div class="search-result-item"><div class="search-result-title">No results found</div></div>';
+        searchResults.classList.add('active');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        searchResults.classList.remove('active');
+      }
+    });
+  }

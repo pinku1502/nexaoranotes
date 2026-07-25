@@ -7,7 +7,7 @@
   <meta name="description" content="Sign in or create an account to access your developer dashboard, coding notes, and interactive compiler sandbox on NexoraCode.">
   <!-- Google Fonts & FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=202607221356">
 </head>
 <body>
 
@@ -61,6 +61,12 @@
           </div>
 
           <button type="submit" class="btn btn-primary form-btn">Log In</button>
+          
+          <div style="text-align: center; margin: 15px 0; color: var(--text-muted);">OR</div>
+          
+          <button type="button" class="btn google-btn form-btn" onclick="mockGoogleLogin()">
+            <i class="fa-brands fa-google"></i> Sign in with Google
+          </button>
         </form>
 
         <div class="auth-toggle">
@@ -113,16 +119,40 @@
           </div>
 
           <button type="submit" class="btn btn-primary form-btn">Create Account</button>
+
+          <div style="text-align: center; margin: 15px 0; color: var(--text-muted);">OR</div>
+          
+          <button type="button" class="btn google-btn form-btn" onclick="mockGoogleLogin()">
+            <i class="fa-brands fa-google"></i> Sign up with Google
+          </button>
         </form>
 
         <div class="auth-toggle">
           Already have an account? <a href="#" id="to-login">Log In</a>
         </div>
       </div>
-
     </div>
-  </div>
+    
+    <div style="text-align: center; margin-top: 25px;">
+      <a href="#" onclick="promptAdminLogin()" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #a78bfa;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        background: rgba(167, 139, 250, 0.1);
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        padding: 10px 20px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      " onmouseover="this.style.background='rgba(167,139,250,0.2)'" onmouseout="this.style.background='rgba(167,139,250,0.1)'">
+        <i class="fa-solid fa-user-shield"></i> Admin Login
+      </a>
+    </div>
 
-  <script src="auth.js"></script>
+  </div>
+  <script src="auth.js?v=202607221356"></script>
 </body>
 </html>

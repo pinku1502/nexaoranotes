@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | NexoraCode</title>
+  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="admin.css?v=4">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+      <span>Nexora<span class="gradient-text">Code</span> Admin</span>
+    </a>
+    
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+      <button class="btn btn-primary" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </nav>
+
+  <script>
+    function adminLogout() {
+      localStorage.removeItem('auraAdminToken');
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+
+  <!-- DASHBOARD CONTENT -->
+  <div class="dashboard-layout">
+  
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar glass-card">
+    <div style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px;">
+      <h3 style="color: var(--text-white); font-size: 1.1rem;"><i class="fa-solid fa-chart-pie" style="color: var(--accent-purple); margin-right: 8px;"></i> Menu</h3>
+    </div>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li class="sidebar-item active" id="nav-users" onclick="switchTab('users')">
+        <i class="fa-solid fa-users"></i> User Database
+      </li>
+      <li class="sidebar-item" id="nav-feedback" onclick="switchTab('feedback')">
+        <i class="fa-solid fa-comments"></i> User Feedback
+      </li>
+      <li class="sidebar-item" id="nav-contact" onclick="switchTab('contact')">
+        <i class="fa-solid fa-envelope-open-text"></i> Contact Messages
+      </li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-container dashboard-main">
+    <section id="section-users" class="dashboard-section active">
+    <div class="admin-header">
+      <h1 class="section-title">User <span class="gradient-text">Database</span></h1>
+      <p class="section-subtitle">Review, manage, and monitor all registered accounts.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card glass-card">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-info">
+          <h3>Total Users</h3>
+          <p id="total-users-count">0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="admin-search">
+      <div class="search-wrapper glass-card">
+        <i class="fa-solid fa-search search-icon"></i>
+        <input type="text" id="admin-search-input" placeholder="Search users by name or email...">
+      </div>
+    </div>
+
+    <div class="table-container glass-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Password</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users-table-body">
+          <!-- Users will be injected here via JavaScript -->
+        </tbody>
+      </table>
+      
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>No registered users found.</p>
+      </div>
+    </div>
+
+    </section>
+
+    <!-- FEEDBACK / REVIEWS SECTION -->
+    <section id="section-feedback" class="dashboard-section" style="display: none;">
+      <div class="admin-header">
+        <h2 class="section-title">User <span class="gradient-text">Feedback</span></h2>
+        <p class="section-subtitle">Reviews submitted from the website footer form.</p>
+      </div>
+
+      <div id="feedback-list" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+        <!-- Feedbacks injected here -->
+      </div>
+
+      <div id="feedback-empty" style="display:none; text-align:center; padding:40px; color:#94a3b8;">
+        <i class="fa-solid fa-comment-slash" style="font-size:3rem; display:block; margin-bottom:15px; opacity:0.3;"></i>
+        <p>No feedback submitted yet.</p>
+      </div>
+    </div>
+
+    </section>
+
+    <!-- CONTACT MESSAGES SECTION -->
+    <section id="section-contact" class="dashboard-section" style="display: none;">
+      <div class="admin-header">
+        <h2 class="section-title">Contact <span class="gradient-text">Messages</span></h2>
+        <p class="section-subtitle">Messages sent from the Contact Page.</p>
+      </div>
+
+      <div id="contact-list" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+        <!-- Contact Messages injected here -->
+      </div>
+
+      <div id="contact-empty" style="display:none; text-align:center; padding:40px; color:#94a3b8;">
+        <i class="fa-regular fa-envelope-open" style="font-size:3rem; display:block; margin-bottom:15px; opacity:0.3;"></i>
+        <p>No contact messages received yet.</p>
+      </div>
+    </div>
+
+  </section>
+
+  </main>
+</div>
+
+  <script src="admin.js?v=4"></script>
+</body>
+</html>

@@ -72,6 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showMsg(signupMsg, 'Please enter a valid email address.', 'error');
+        return;
+      }
+
       if (password.length < 6) {
         showMsg(signupMsg, 'Password must be at least 6 characters long.', 'error');
         return;
@@ -83,28 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const users = getUsers();
-      const userExists = users.some(u => u.email === email);
-
-      if (userExists) {
-        showMsg(signupMsg, 'An account with this email already exists.', 'error');
-        return;
+      const existingUserIndex = users.findIndex(u => u.email === email);
+      if (existingUserIndex !== -1) {
+        if (users[existingUserIndex].password === password) {
+          users[existingUserIndex].name = name;
+          saveUsers(users);
+          showMsg(signupMsg, 'Account name updated successfully! Redirecting...', 'success');
+          localStorage.setItem('auraUserLoggedIn', 'true');
+          localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
+        } else {
+          showMsg(signupMsg, 'An account with this email already exists.', 'error');
+          return;
+        }
+      } else {
+        // Create and Save New User
+        const newUser = {
+          name,
+          email,
+          password
+        };
+        users.push(newUser);
+        saveUsers(users);
+        showMsg(signupMsg, 'Registration successful! Redirecting...', 'success');
+        localStorage.setItem('auraUserLoggedIn', 'true');
+        localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
       }
-
-      // Create and Save New User
-      const newUser = {
-        name,
-        email,
-        password // Stored in plain text for mock authentication demonstration
-      };
-
-      users.push(newUser);
-      saveUsers(users);
-
-      showMsg(signupMsg, 'Registration successful! Redirecting...', 'success');
-
-      // Set active user session
-      localStorage.setItem('auraUserLoggedIn', 'true');
-      localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
 
       setTimeout(() => {
         window.location.href = 'index.html';
@@ -179,3 +188,50 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPasswordToggle('toggle-signup-confirm-password', 'signup-confirm-password');
 
 });
+
+// Global Mock Google Login Function
+window.mockGoogleLogin = () => {
+  const buttons = document.querySelectorAll('.google-btn');
+  buttons.forEach(btn => {
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+  });
+
+  setTimeout(() => {
+    const users = JSON.parse(localStorage.getItem('auraUsersRegistry') || '[]');
+    const googleUser = {
+      name: "Google User",
+      email: "googleuser@gmail.com",
+      password: "google_oauth_mock_password"
+    };
+
+    const exists = users.find(u => u.email === googleUser.email);
+    if (!exists) {
+      users.push(googleUser);
+      localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
+    }
+
+    localStorage.setItem('auraUserLoggedIn', 'true');
+    localStorage.setItem('auraCurrentUser', JSON.stringify({ name: googleUser.name, email: googleUser.email }));
+
+    window.location.href = window.location.pathname.includes('login.html') ? 'index.html' : window.location.href;
+  }, 1200);
+};
+
+// Admin Login Prompt
+window.promptAdminLogin = () => {
+  const adminId = prompt("Enter Admin ID:");
+  if (adminId === "admin@nexaora.com") {
+    const adminPass = prompt("Enter Admin Password:");
+    if (adminPass === "admin123") {
+      localStorage.setItem('auraAdminLoggedIn', 'true');
+      alert("Admin access granted.");
+      window.location.href = 'admin.html';
+    } else {
+      alert("Invalid Admin Password.");
+    }
+  } else if (adminId) {
+    alert("Invalid Admin ID.");
+  }
+};

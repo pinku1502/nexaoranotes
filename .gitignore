@@ -1,0 +1,5 @@
+node_modules/
+nexaora.db
+*.pyc
+__pycache__/
+.env

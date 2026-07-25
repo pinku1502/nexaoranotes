@@ -1,4 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Render profile header if logged in
+    const userLoggedIn = localStorage.getItem('auraUserLoggedIn') === 'true';
+    const profileSection = document.getElementById('user-profile-section');
+    if (userLoggedIn && profileSection) {
+        const currentUserStr = localStorage.getItem('auraCurrentUser');
+        let displayName = 'Developer';
+        if (currentUserStr) {
+            try {
+                const currentUser = JSON.parse(currentUserStr);
+                if (currentUser && currentUser.name) {
+                    displayName = currentUser.name;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        profileSection.innerHTML = `
+            <span class="user-welcome" style="margin-right: 12px; font-size: 13.5px; font-weight: 500; color: #64748b;">
+                Welcome, <span style="font-weight: 600; color: #3b82f6;">${displayName}</span>!
+            </span>
+            <button class="btn btn-secondary" id="logout-btn" style="padding: 6px 12px; font-size: 12px; background: transparent; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; color: #334155; font-family: inherit;">Log Out</button>
+        `;
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to log out of your session?')) {
+                    localStorage.removeItem('auraUserLoggedIn');
+                    localStorage.removeItem('auraCurrentUser');
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
     
     const courseData = [
     {

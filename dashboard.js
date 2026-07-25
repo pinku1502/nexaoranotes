@@ -417,7 +417,7 @@ Layout rendering: Successful [0 warnings]`
         return;
       }
       if (langKey === 'javascript') {
-        window.location.href = 'javascript-masterclass.html';
+        window.location.href = 'javascript-course.html';
         return;
       }
     if (langKey === 'html') {
@@ -563,11 +563,15 @@ Layout rendering: Successful [0 warnings]`
         return;
       }
       if (langKey === 'javascript') {
-          window.location.href = 'javascript-masterclass.html';
+          window.location.href = 'javascript-course.html';
           return;
         }
       if (langKey === 'typescript') {
         window.location.href = 'typescript-course.html';
+        return;
+      }
+      if (langKey === 'express' || langKey === 'express.js') {
+        window.location.href = 'express-course.html';
         return;
       }
       if (langKey === 'python') {
@@ -610,14 +614,14 @@ Layout rendering: Successful [0 warnings]`
   const urlParams = new URLSearchParams(window.location.search);
   const urlLang = urlParams.get('lang');
   
-      else if (urlLang === 'nodejs' || urlLang === 'node.js') window.location.href = 'nodejs-course.html';
-if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
-            else if (urlLang === 'react') window.location.href = 'react-course.html';
-    else if (urlLang === 'sql') window.location.href = 'sql-course.html';
-    else if (urlLang === 'mysql') window.location.href = 'mysql-course.html';
-
-    else if (urlLang === 'python') window.location.href = 'python-course.html';
-    else if (urlLang === 'java') window.location.href = 'java-course.html';
+  if (urlLang === 'nodejs' || urlLang === 'node.js') window.location.href = 'nodejs-course.html';
+  else if (urlLang === 'typescript') window.location.href = 'typescript-course.html';
+  else if (urlLang === 'express' || urlLang === 'express.js') window.location.href = 'express-course.html';
+  else if (urlLang === 'react') window.location.href = 'react-course.html';
+  else if (urlLang === 'sql') window.location.href = 'sql-course.html';
+  else if (urlLang === 'mysql') window.location.href = 'mysql-course.html';
+  else if (urlLang === 'python') window.location.href = 'python-course.html';
+  else if (urlLang === 'java') window.location.href = 'java-course.html';
   else if (urlLang === 'html') window.location.href = 'html-course.html';
   else if (urlLang === 'css') window.location.href = 'css-course.html';
   else if (urlLang === 'c') window.location.href = 'c-course.html';

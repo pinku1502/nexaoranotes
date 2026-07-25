@@ -1,4 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Render profile header if logged in
+    const userLoggedIn = localStorage.getItem('auraUserLoggedIn') === 'true';
+    const profileSection = document.getElementById('user-profile-section');
+    if (userLoggedIn && profileSection) {
+        const currentUserStr = localStorage.getItem('auraCurrentUser');
+        let displayName = 'Developer';
+        if (currentUserStr) {
+            try {
+                const currentUser = JSON.parse(currentUserStr);
+                if (currentUser && currentUser.name) {
+                    displayName = currentUser.name;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        profileSection.innerHTML = `
+            <span class="user-welcome" style="margin-right: 12px; font-size: 13.5px; font-weight: 500; color: #64748b;">
+                Welcome, <span style="font-weight: 600; color: #3b82f6;">${displayName}</span>!
+            </span>
+            <button class="btn btn-secondary" id="logout-btn" style="padding: 6px 12px; font-size: 12px; background: transparent; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; color: #334155; font-family: inherit;">Log Out</button>
+        `;
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to log out of your session?')) {
+                    localStorage.removeItem('auraUserLoggedIn');
+                    localStorage.removeItem('auraCurrentUser');
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
     
     const courseData = [
     {
@@ -17,42 +51,154 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'ch2',
         title: 'Module 2: The Box Model (Crucial Concept!)',
         content: `
-            <p>If you don't understand the Box Model, you will never master CSS. <strong>EVERYTHING in HTML is a rectangular box.</strong> Even if a button looks round, the browser still treats it as a rectangular box!</p>
-            <h3>The 4 Layers of the Box:</h3>
+            <p>If you don't understand the Box Model, you will <strong>never master CSS</strong>. Every single HTML element — paragraphs, images, buttons, divs — is treated by the browser as a rectangular box.</p>
+
+            <div style="text-align:center; margin: 24px 0;">
+              <img src="css-box-model.jpg" alt="CSS Box Model Diagram" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid #e2e8f0;" />
+              <p style="font-size:0.82rem; color:#94a3b8; margin-top:8px;">📦 Visual representation of the CSS Box Model</p>
+            </div>
+
+            <h3>The 4 Layers of Every Box:</h3>
             <ol>
-                <li><strong>Content:</strong> The actual text or image (The fragile item).</li>
-                <li><strong>Padding:</strong> Space INSIDE the border. <em>Analogy:</em> The bubble wrap inside the shipping box protecting the item.</li>
-                <li><strong>Border:</strong> The actual edge of the box. <em>Analogy:</em> The cardboard itself.</li>
-                <li><strong>Margin:</strong> Space OUTSIDE the border. <em>Analogy:</em> The physical distance between two shipping boxes on the floor.</li>
+                <li><strong>Content:</strong> The actual text, image, or child element inside. Set its size with <code>width</code> and <code>height</code>. <em>Analogy: The fragile item inside a shipping box.</em></li>
+                <li><strong>Padding:</strong> Space INSIDE the border, between the content and the border. <em>Analogy: The bubble wrap protecting the item.</em></li>
+                <li><strong>Border:</strong> The actual visible edge/frame around the box. Can have thickness, style, and color. <em>Analogy: The cardboard box itself.</em></li>
+                <li><strong>Margin:</strong> Space OUTSIDE the border, separating this box from other elements. <em>Analogy: The distance between two boxes placed on a table.</em></li>
             </ol>
-            <p><em>Pro Tip:</em> Always use <code>box-sizing: border-box;</code> so padding doesn't accidentally make your boxes wider than you wanted!</p>
+
+            <h3>Code Example:</h3>
+            <pre><code>.card {
+  width: 300px;          /* Content width */
+  height: 150px;         /* Content height */
+  padding: 20px;         /* Space inside border */
+  border: 2px solid #3b82f6;  /* The frame */
+  margin: 30px auto;     /* Space outside, centered */
+  background: white;
+}</code></pre>
+
+            <h3>🧨 The Width Trap (Very Common Bug!)</h3>
+            <p>By default (<code>box-sizing: content-box</code>), if you set <code>width: 300px</code> and then add <code>padding: 20px</code>, the <strong>actual rendered width becomes 340px</strong> (300 + 20 + 20). This breaks layouts!</p>
+            <p>✅ <strong>Fix it permanently:</strong> Always add this to the top of your CSS file:</p>
+            <pre><code>* {
+  box-sizing: border-box;
+}</code></pre>
+            <p>Now <code>width: 300px</code> means the box is <strong>exactly 300px</strong>, and padding is included inside that width — no surprises!</p>
+
+            <h3>Shorthand Properties:</h3>
+            <pre><code>/* Top | Right | Bottom | Left (clockwise) */
+padding: 10px 20px 10px 20px;
+
+/* Vertical | Horizontal */
+padding: 10px 20px;
+
+/* All sides equal */
+padding: 15px;
+
+/* Same rules apply to margin! */
+margin: 20px auto; /* Top/Bottom: 20px, Left/Right: auto (centering trick!) */</code></pre>
+
+            <h3>Border Styles:</h3>
+            <pre><code>border: 2px solid red;      /* Solid line */
+border: 3px dashed blue;   /* Dashed line */
+border: 4px dotted green;  /* Dotted line */
+border-radius: 8px;        /* Round the corners */
+border-radius: 50%;        /* Perfect circle! */</code></pre>
+
+            <h3>Outline vs Border:</h3>
+            <ul>
+                <li><code>border</code> — takes up space, affects layout</li>
+                <li><code>outline</code> — does NOT take up space, drawn outside border (used for accessibility focus rings)</li>
+            </ul>
+
+            <p><em>💡 Pro Tip: Open DevTools (F12) → Elements tab → hover any element to see a colorful box model diagram live!</em></p>
         `
     },
     {
         id: 'ch3',
         title: 'Module 3: CSS Flexbox (The 1D Organizer)',
         content: `
-            <p>Before Flexbox, centering a div was a nightmare. Now, it's incredibly easy.</p>
+            <p>Before Flexbox, centering a div was a nightmare. Now it's incredibly easy. Flexbox works in <strong>one direction</strong> — either a Row or a Column.</p>
+
+            <div style="text-align:center; margin: 24px 0;">
+              <img src="css-flexbox.jpg" alt="CSS Flexbox Diagram" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid #e2e8f0;" />
+              <p style="font-size:0.82rem; color:#94a3b8; margin-top:8px;">📐 Flexbox — 1D layout system (Row & Column)</p>
+            </div>
+
+            <h3>Core Properties:</h3>
             <ul>
-                <li><strong>Flexbox:</strong> <em>Analogy:</em> Imagine arranging books on a single, straight wooden shelf. You can push all the books to the left (<code>justify-content: flex-start</code>), spread them out evenly (<code>space-between</code>), or perfectly center them (<code>center</code>).</li>
-                <li>Flexbox is one-dimensional: it organizes things in a single Row OR a single Column.</li>
+                <li><code>display: flex</code> — Turns the container into a flex container. All direct children become flex items.</li>
+                <li><code>flex-direction: row</code> — Items go left→right (default). Use <code>column</code> for top→bottom.</li>
+                <li><code>justify-content</code> — Controls alignment along the <strong>main axis</strong> (horizontal in row). Values: <code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>.</li>
+                <li><code>align-items</code> — Controls alignment along the <strong>cross axis</strong> (vertical in row). Values: <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>stretch</code>.</li>
+                <li><code>flex-wrap: wrap</code> — Allows items to wrap onto next line instead of overflowing.</li>
+                <li><code>gap: 16px</code> — Adds spacing between flex items (modern replacement for margin hacks).</li>
             </ul>
+
+            <h3>The Holy Grail — Perfect Centering:</h3>
             <pre><code>.container {
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    height: 100vh;           /* Full screen height */
 }</code></pre>
+
+            <h3>Flex Item Properties:</h3>
+            <pre><code>.item {
+    flex: 1;       /* Grow to fill available space equally */
+    flex-grow: 2;  /* Grow twice as much as siblings with flex: 1 */
+    flex-shrink: 0; /* Never shrink, even if space is tight */
+    align-self: flex-end; /* Override align-items just for this one item */
+}</code></pre>
+
+            <p><em>💡 Analogy: Flexbox is like arranging books on a single shelf. justify-content decides horizontal spacing, align-items decides how tall each book sits.</em></p>
         `
     },
     {
         id: 'ch4',
         title: 'Module 4: CSS Grid (The 2D Architect)',
         content: `
-            <p>While Flexbox is like a single shelf, CSS Grid is a massive 2D checkerboard. It controls both Rows AND Columns at the exact same time.</p>
-            <ul>
-                <li><strong>Grid:</strong> <em>Analogy:</em> Imagine drawing a tic-tac-toe board on your screen. You can tell an image to sit exactly in the top-right square, and a paragraph to stretch across the entire bottom row.</li>
-                <li>Use Flexbox for small components (like a navigation bar). Use Grid for massive page layouts (like a sidebar, header, and main content area).</li>
-            </ul>
+            <p>While Flexbox handles one direction, CSS Grid controls <strong>both rows AND columns simultaneously</strong>. It's the most powerful layout system in CSS.</p>
+
+            <div style="text-align:center; margin: 24px 0;">
+              <img src="css-grid.jpg" alt="CSS Grid Layout Diagram" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid #e2e8f0;" />
+              <p style="font-size:0.82rem; color:#94a3b8; margin-top:8px;">🏗️ CSS Grid — 2D layout with rows and columns</p>
+            </div>
+
+            <h3>Core Properties:</h3>
+            <pre><code>.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr; /* 3 columns: fixed | flexible | flexible */
+    grid-template-rows: auto;              /* Rows size to content */
+    gap: 20px;                             /* Space between cells */
+}</code></pre>
+
+            <h3>The fr Unit (Fractional):</h3>
+            <p><code>fr</code> is the magic unit of Grid. It means "take up this fraction of the remaining space".</p>
+            <pre><code>grid-template-columns: 1fr 2fr 1fr;
+/* Column 2 is twice as wide as columns 1 and 3 */</code></pre>
+
+            <h3>Spanning Cells:</h3>
+            <pre><code>.header {
+    grid-column: 1 / 4; /* Stretch from line 1 to line 4 (all 3 columns) */
+}
+.sidebar {
+    grid-row: 2 / 4;    /* Stretch from row 2 to row 4 */
+}</code></pre>
+
+            <h3>Named Areas (Most Readable!):</h3>
+            <pre><code>.container {
+    display: grid;
+    grid-template-areas:
+        "header  header  header"
+        "sidebar main    main"
+        "footer  footer  footer";
+}
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }</code></pre>
+
+            <p><em>💡 Rule of thumb: Use <strong>Flexbox</strong> for nav bars, cards row, buttons. Use <strong>Grid</strong> for full page layouts.</em></p>
         `
     },
     {
@@ -73,31 +219,88 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'ch6',
         title: 'Module 6: Responsive Design (Media Queries)',
         content: `
-            <p>You want your website to look good on a massive 4K monitor, but also on a tiny iPhone screen. We use Media Queries to achieve this.</p>
-            <ul>
-                <li><strong>Media Queries:</strong> <em>Analogy:</em> A chameleon that changes its skin color depending on its environment. A Media Query asks the browser: "How wide are you?" and applies specific CSS rules based on the answer.</li>
-            </ul>
-            <pre><code>/* Normal rule */
-.sidebar { width: 300px; }
+            <p>Your website must look great on all screens — from a 4K monitor to a tiny phone. <strong>Media Queries</strong> let you apply different CSS rules based on the screen size.</p>
 
-/* Chameleon rule: If the screen is smaller than 768px */
+            <div style="text-align:center; margin: 24px 0;">
+              <img src="css-responsive.jpg" alt="Responsive Design Diagram" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid #e2e8f0;" />
+              <p style="font-size:0.82rem; color:#94a3b8; margin-top:8px;">📱 Same website, different layouts for different screen sizes</p>
+            </div>
+
+            <h3>Common Breakpoints:</h3>
+            <pre><code>/* Mobile first approach (recommended!) */
+.container { width: 100%; }            /* Default: Mobile */
+
+@media (min-width: 640px) { ... }      /* Small tablets */
+@media (min-width: 768px) { ... }      /* Tablets */
+@media (min-width: 1024px) { ... }     /* Laptops */
+@media (min-width: 1280px) { ... }     /* Desktops */</code></pre>
+
+            <h3>Real Example — Collapsing Sidebar:</h3>
+            <pre><code>.layout {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Desktop: sidebar + content */
+}
+
 @media (max-width: 768px) {
-    .sidebar { width: 100%; } /* Make it full width on phones! */
+    .layout {
+        grid-template-columns: 1fr;   /* Mobile: full width, no sidebar */
+    }
+    .sidebar {
+        display: none;                /* Hide sidebar on mobile */
+    }
 }</code></pre>
+
+            <h3>Other Media Query Features:</h3>
+            <pre><code>@media (prefers-color-scheme: dark) { ... }  /* Dark mode */
+@media (orientation: landscape) { ... }       /* Phone rotated sideways */
+@media print { ... }                          /* When user prints the page */</code></pre>
+
+            <p><em>💡 Pro Tip: Always design <strong>Mobile First</strong> — start with the smallest screen, then add media queries to enhance for larger screens.</em></p>
         `
     }    ,
         {
         id: 'ch7',
         title: 'Module 7: CSS Positioning (The Architect)',
         content: `
-            <p>Sometimes you need an element to break out of the normal HTML flow and sit EXACTLY where you want it on the screen.</p>
+            <p>Sometimes elements need to break out of normal document flow and sit exactly where you tell them. That's what <code>position</code> is for.</p>
+
+            <div style="text-align:center; margin: 24px 0;">
+              <img src="css-positioning.jpg" alt="CSS Positioning Diagram" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid #e2e8f0;" />
+              <p style="font-size:0.82rem; color:#94a3b8; margin-top:8px;">📌 CSS Positioning — static, relative, absolute, fixed</p>
+            </div>
+
+            <h3>All 5 Position Values:</h3>
             <ul>
-                <li><strong>static:</strong> The default. Elements just stack naturally on top of each other like building blocks.</li>
-                <li><strong>relative:</strong> Moves the element relative to where it <em>normally</em> would have been, without moving the blocks around it. (Like shifting slightly in your chair).</li>
-                <li><strong>absolute:</strong> <em>Analogy:</em> A sticker. You peel the element off the page completely and stick it EXACTLY 10px from the top of its closest <code>relative</code> parent container. Everything else pretends the absolute element doesn't exist!</li>
-                <li><strong>fixed:</strong> <em>Analogy:</em> A bug on your monitor screen. It stays locked to the screen even when you scroll the webpage up and down (perfect for a sticky navigation bar).</li>
-                <li><strong>sticky:</strong> A magical hybrid. It starts out acting like <code>relative</code>, but the moment you scroll past it, it snaps to the top of the screen and acts like <code>fixed</code>!</li>
+                <li><strong>static</strong> — Default. Elements stack naturally top-to-bottom. <code>top/left/right/bottom</code> have NO effect here.</li>
+                <li><strong>relative</strong> — Element shifts from its original spot. The original space is still reserved. Other elements don't notice it moved.</li>
+                <li><strong>absolute</strong> — Fully removed from flow. Positioned relative to its nearest <code>position: relative</code> ancestor. <em>Analogy: A sticky note placed anywhere on paper.</em></li>
+                <li><strong>fixed</strong> — Removed from flow, positioned relative to the browser window. Stays visible even when scrolling. <em>Perfect for: chat buttons, sticky navbars.</em></li>
+                <li><strong>sticky</strong> — Hybrid of relative + fixed. Scrolls normally until it hits its <code>top</code> value, then sticks. <em>Perfect for: table headers, sidebar navigation.</em></li>
             </ul>
+
+            <h3>Code Example — Floating Badge:</h3>
+            <pre><code>.card {
+    position: relative; /* Makes card the anchor */
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;    /* Sticks to top-right corner of .card */
+    background: red;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}</code></pre>
+
+            <h3>Sticky Nav Example:</h3>
+            <pre><code>nav {
+    position: sticky;
+    top: 0;        /* Sticks when it reaches top of viewport */
+    z-index: 100;  /* Stays above other content */
+    background: white;
+}</code></pre>
         `
     },
     {
