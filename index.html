@@ -178,7 +178,7 @@
         <h3 class="lang-name">Python</h3>
         <p class="lang-desc">Easiest syntaxes for data science, automation scripts, and rapid API development.</p>
         <span class="lang-badge badge-easy">Easy</span>
-        <button class="btn btn-secondary" onclick="window.location.href='python-course.html'">Learn Python</button>
+        <button class="btn btn-secondary" onclick="window.location.href='python-course.html?v=2'">Learn Python</button>
       </div>
 
       <!-- JavaScript -->
@@ -223,7 +223,7 @@
         <h3 class="lang-name">SQL</h3>
         <p class="lang-desc">Structured Query Language. Design, query, and manipulate relational databases.</p>
         <span class="lang-badge badge-easy">Easy</span>
-        <button class="btn btn-secondary" onclick="window.location.href='sql-course.html'">Learn SQL</button>
+        <button class="btn btn-secondary" onclick="window.location.href='sql-course.html?v=2'">Learn SQL</button>
       </div>
 
       <!-- React -->
@@ -232,7 +232,7 @@
         <h3 class="lang-name">React</h3>
         <p class="lang-desc">Declarative component UI library. Build complex SPAs with reactive state management.</p>
         <span class="lang-badge badge-medium">Medium</span>
-        <button class="btn btn-secondary" onclick="window.location.href='react-course.html'">Learn React</button>
+        <button class="btn btn-secondary" onclick="window.location.href='react-course.html?v=2'">Learn React</button>
       </div>
 
       <!-- NodeJS -->
@@ -289,8 +289,7 @@
 
     <!-- Language Filter Tabs -->
     <div class="interview-tabs" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
-      <button class="tab-btn active" data-filter="all">All</button>
-      <button class="tab-btn" data-filter="javascript">JavaScript</button>
+      <button class="tab-btn active" data-filter="javascript">JavaScript</button>
       <button class="tab-btn" data-filter="python">Python</button>
       <button class="tab-btn" data-filter="java">Java</button>
       <button class="tab-btn" data-filter="cpp">C++</button>
@@ -310,6 +309,54 @@
         <h3>Explain the Event Loop and asynchronous tasks.</h3>
         <p>The event loop monitors call stacks and callbacks. Moves callback events from message task queues to call stacks whenever execution threads become empty.</p>
       </div>
+      <!-- JavaScript 3 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What are closures and why are they used?</h3>
+        <p>Closures are functions that remember the environment in which they were created, even after the outer function has finished executing. They are used for data privacy and currying.</p>
+      </div>
+      <!-- JavaScript 4 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>Explain the difference between '==' and '==='.</h3>
+        <p>'==' checks for value equality with type coercion, whereas '===' checks for both value and type equality without coercion.</p>
+      </div>
+      <!-- JavaScript 5 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What is Hoisting in JavaScript?</h3>
+        <p>Hoisting is JavaScript's default behavior of moving variable and function declarations to the top of their containing scope before code execution.</p>
+      </div>
+      <!-- JavaScript 6 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>Explain the 'this' keyword.</h3>
+        <p>'this' refers to the object that is executing the current function. Its value is determined by how a function is called, not where it was defined.</p>
+      </div>
+      <!-- JavaScript 7 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What are Promises?</h3>
+        <p>Promises represent the eventual completion or failure of an asynchronous operation, providing a cleaner alternative to nested callbacks.</p>
+      </div>
+      <!-- JavaScript 8 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What is event delegation?</h3>
+        <p>Event delegation is a pattern where a single event listener is attached to a parent element to handle events for all of its current and future child elements.</p>
+      </div>
+      <!-- JavaScript 9 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>Explain map(), filter(), and reduce().</h3>
+        <p>Array methods used for transformation: map() creates a new array by applying a function, filter() extracts matching elements, and reduce() accumulates values into a single result.</p>
+      </div>
+      <!-- JavaScript 10 -->
+      <div class="interview-card glass-card" data-lang="javascript">
+        <span class="interview-category">JavaScript</span>
+        <h3>What is the DOM?</h3>
+        <p>The Document Object Model is an API that represents the HTML structure as a tree of objects, allowing JavaScript to dynamically manipulate the page content and structure.</p>
+      </div>
       <!-- Python 1 -->
       <div class="interview-card glass-card" data-lang="python">
         <span class="interview-category">Python</span>
@@ -321,6 +368,54 @@
         <span class="interview-category">Python</span>
         <h3>Explain the differences between lists and tuples.</h3>
         <p>Lists are mutable collections defined with brackets [], allowing elements to be modified. Tuples are immutable collections defined with parentheses (), offering faster execution and hash keys safety.</p>
+      </div>
+      <!-- Python 3 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What is PEP 8?</h3>
+        <p>PEP 8 is the official style guide for Python code, providing conventions and best practices for writing clean, readable, and maintainable code.</p>
+      </div>
+      <!-- Python 4 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>Explain Python's GIL (Global Interpreter Lock).</h3>
+        <p>The GIL is a mutex in CPython that protects access to Python objects, preventing multiple native threads from executing Python bytecodes at once, which limits true multithreading.</p>
+      </div>
+      <!-- Python 5 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What are lambda functions?</h3>
+        <p>Lambda functions are small, anonymous functions defined using the 'lambda' keyword. They can take any number of arguments but can only have a single expression.</p>
+      </div>
+      <!-- Python 6 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>How is memory managed in Python?</h3>
+        <p>Memory is managed automatically via a private heap space. Python uses reference counting and a garbage collector to recycle unused memory.</p>
+      </div>
+      <!-- Python 7 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What is a dictionary comprehension?</h3>
+        <p>A concise syntax for creating dictionaries from iterables, similar to list comprehensions but producing key-value pairs (e.g., {k: v for k, v in iterable}).</p>
+      </div>
+      <!-- Python 8 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>Explain '*args' and '**kwargs'.</h3>
+        <p>'*args' allows passing a variable number of positional arguments, while '**kwargs' allows passing a variable number of keyword arguments to a function.</p>
+      </div>
+      <!-- Python 9 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What is the difference between deepcopy and shallow copy?</h3>
+        <p>A shallow copy creates a new object but inserts references to the original child objects. A deep copy creates a new object and recursively copies all child objects too.</p>
+      </div>
+      <!-- Python 10 -->
+      <div class="interview-card glass-card" data-lang="python">
+        <span class="interview-category">Python</span>
+        <h3>What are generators?</h3>
+        <p>Generators are functions that return an iterator object. Instead of returning all values at once using 'return', they yield values one at a time using 'yield'.</p>
       </div>
       <!-- Java 1 -->
       <div class="interview-card glass-card" data-lang="java">
@@ -334,6 +429,54 @@
         <h3>Overloading vs Overriding in Java.</h3>
         <p>Method overloading occurs within the same class with identical names but different argument parameters. Method overriding occurs in subclasses overriding inheritance signatures.</p>
       </div>
+      <!-- Java 3 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>What is the difference between an Interface and an Abstract Class?</h3>
+        <p>Interfaces only contain abstract methods (before Java 8) and support multiple inheritance. Abstract classes can have state and concrete methods but don't support multiple inheritance.</p>
+      </div>
+      <!-- Java 4 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>Explain the concept of OOPs.</h3>
+        <p>Object-Oriented Programming relies on four main pillars: Encapsulation, Inheritance, Polymorphism, and Abstraction to organize software design around data/objects.</p>
+      </div>
+      <!-- Java 5 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>What is the final keyword?</h3>
+        <p>'final' can be applied to variables (cannot be changed), methods (cannot be overridden), and classes (cannot be subclassed).</p>
+      </div>
+      <!-- Java 6 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>Explain the difference between String, StringBuilder, and StringBuffer.</h3>
+        <p>String is immutable. StringBuilder is mutable but not thread-safe (faster). StringBuffer is mutable and synchronized (thread-safe but slower).</p>
+      </div>
+      <!-- Java 7 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>What are checked and unchecked exceptions?</h3>
+        <p>Checked exceptions are checked at compile-time (e.g., IOException). Unchecked exceptions occur at runtime (e.g., NullPointerException) and do not force a try-catch block.</p>
+      </div>
+      <!-- Java 8 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>What is a Singleton class?</h3>
+        <p>A class that can have only one object (instance of the class) at a time. Achieved by making the constructor private and providing a static method to get the instance.</p>
+      </div>
+      <!-- Java 9 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>How do HashMaps work internally?</h3>
+        <p>HashMaps store key-value pairs using a hash table. They use the hashCode() of the key to determine the bucket location and handle collisions using linked lists or trees.</p>
+      </div>
+      <!-- Java 10 -->
+      <div class="interview-card glass-card" data-lang="java">
+        <span class="interview-category">Java</span>
+        <h3>What is multithreading in Java?</h3>
+        <p>Multithreading allows concurrent execution of two or more parts of a program to maximize CPU utilization, implemented by extending Thread or implementing Runnable.</p>
+      </div>
       <!-- C++ 1 -->
       <div class="interview-card glass-card" data-lang="cpp">
         <span class="interview-category">C++</span>
@@ -346,6 +489,54 @@
         <h3>What are virtual functions and vtables in C++?</h3>
         <p>Virtual functions allow dynamic binding. The compiler creates a virtual table (vtable) for classes containing virtual functions, routing calls to the appropriate subclass method at runtime.</p>
       </div>
+      <!-- C++ 3 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>Explain RAII in C++.</h3>
+        <p>Resource Acquisition Is Initialization (RAII) ties resource lifecycle to object lifetime. Resources are acquired in the constructor and automatically released in the destructor.</p>
+      </div>
+      <!-- C++ 4 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>What is the difference between malloc() and new?</h3>
+        <p>'new' is a C++ operator that allocates memory and calls the constructor. 'malloc()' is a C function that only allocates uninitialized raw memory blocks.</p>
+      </div>
+      <!-- C++ 5 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>What are templates?</h3>
+        <p>Templates are the foundation of generic programming in C++, allowing functions and classes to operate with generic types without rewriting code for each type.</p>
+      </div>
+      <!-- C++ 6 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>Explain smart pointers.</h3>
+        <p>Smart pointers (std::unique_ptr, std::shared_ptr, std::weak_ptr) are wrappers around raw pointers that automatically manage memory deallocation to prevent memory leaks.</p>
+      </div>
+      <!-- C++ 7 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>What is the Rule of Three / Five?</h3>
+        <p>If a class defines a destructor, copy constructor, or copy assignment operator, it likely needs all three (Rule of 3). C++11 added move constructor and move assignment (Rule of 5).</p>
+      </div>
+      <!-- C++ 8 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>Explain standard template library (STL).</h3>
+        <p>STL provides a collection of generic algorithms, containers (vector, list, map), and iterators that provide robust and efficient data structures.</p>
+      </div>
+      <!-- C++ 9 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>What is a friend function?</h3>
+        <p>A function that is granted access to the private and protected members of a class, even though it is not a member of that class itself.</p>
+      </div>
+      <!-- C++ 10 -->
+      <div class="interview-card glass-card" data-lang="cpp">
+        <span class="interview-category">C++</span>
+        <h3>How does exception handling work?</h3>
+        <p>C++ uses try, catch, and throw keywords. When an error occurs, an exception is thrown, the call stack unwinds until a matching catch block handles the error.</p>
+      </div>
       <!-- System Design 1 -->
       <div class="interview-card glass-card" data-lang="system-design">
         <span class="interview-category">System Design</span>
@@ -357,6 +548,54 @@
         <span class="interview-category">System Design</span>
         <h3>What is load balancing and traffic routing?</h3>
         <p>Load balancers sit between clients and server clusters, routing traffic algorithms (like Round Robin or Least Connections) to prevent server bottlenecks.</p>
+      </div>
+      <!-- System Design 3 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>SQL vs NoSQL Databases.</h3>
+        <p>SQL databases are relational and structured with rigid schemas (ACID). NoSQL databases are non-relational, flexible, and scale horizontally (BASE/Eventual Consistency).</p>
+      </div>
+      <!-- System Design 4 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>What is caching and how does it improve performance?</h3>
+        <p>Caching stores frequently accessed data in fast memory (like Redis/Memcached) to reduce database load and serve requests instantly.</p>
+      </div>
+      <!-- System Design 5 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>Explain Microservices Architecture.</h3>
+        <p>An approach where an application is composed of small, independent services communicating over APIs, allowing independent scaling, deployment, and tech stacks.</p>
+      </div>
+      <!-- System Design 6 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>What is horizontal vs vertical scaling?</h3>
+        <p>Vertical scaling (scaling up) adds more power (CPU/RAM) to an existing machine. Horizontal scaling (scaling out) adds more machines to the resource pool.</p>
+      </div>
+      <!-- System Design 7 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>How does a CDN (Content Delivery Network) work?</h3>
+        <p>CDNs cache static assets (images, CSS, JS) on globally distributed edge servers, serving content to users from the server geographically closest to them to reduce latency.</p>
+      </div>
+      <!-- System Design 8 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>Explain database sharding.</h3>
+        <p>Sharding splits a large database table across multiple separate database servers based on a shard key, improving read/write throughput and storage limits.</p>
+      </div>
+      <!-- System Design 9 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>What is message queuing (e.g., Kafka, RabbitMQ)?</h3>
+        <p>Message queues decouple system components by storing messages asynchronously. They absorb traffic spikes and allow background workers to process tasks at their own pace.</p>
+      </div>
+      <!-- System Design 10 -->
+      <div class="interview-card glass-card" data-lang="system-design">
+        <span class="interview-category">System Design</span>
+        <h3>Explain CAP Theorem.</h3>
+        <p>States that a distributed system can only provide two of three guarantees simultaneously: Consistency, Availability, and Partition tolerance.</p>
       </div>
     </div>
   </section>

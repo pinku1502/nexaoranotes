@@ -324,6 +324,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+
+    // Initialize: click the default active tab
+    const activeTab = document.querySelector('.interview-tabs .tab-btn.active');
+    if (activeTab) {
+      activeTab.click();
+    }
   }
 
   // ==========================================================================
