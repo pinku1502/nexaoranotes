@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - NexoraCode</title>
+  <meta name="description" content="Privacy Policy for NexoraCode">
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=202607221356">
+</head>
+<body>
+  <!-- Background Particle Canvas & Blobs -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html#home" class="logo">
+      <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+      <span>Nexora<span class="gradient-text">Code</span></span>
+    </a>
+    
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html#home" class="nav-link">Home</a></li>
+      <li><a href="index.html#languages" class="nav-link">Languages</a></li>
+      <li><a href="index.html#faq" class="nav-link">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="search-container">
+        <i class="fa-solid fa-search search-icon"></i>
+        <input type="text" id="global-search" class="search-input" placeholder="Search notes...">
+        <div class="search-results" id="search-results"></div>
+      </div>
+      <button class="btn btn-secondary" id="open-login-btn">Log In</button>
+      <button class="btn btn-primary" id="open-signup-btn">Create Account</button>
+    </div>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </nav>
+
+  <section class="hero" style="padding-top: 150px; text-align: left; min-height: 80vh; max-width: 900px; margin: 0 auto;">
+    <h1 class="hero-headline">Privacy <span class="gradient-text">Policy</span></h1>
+    <p class="hero-sub" style="margin-bottom: 40px; text-align: left;">Effective Date: July 2026</p>
+    
+    <div class="glass-card" style="padding: 40px; line-height: 1.8; color: var(--text-gray);">
+      <h3 style="color: var(--text-white); margin-top: 20px;">1. Information We Collect</h3>
+      <p>We may collect personal information such as your name, email address, and usage data when you register an account, fill out our contact form, or interact with our platform.</p>
+      
+      <h3 style="color: var(--text-white); margin-top: 30px;">2. How We Use Your Information</h3>
+      <p>Your information is used to personalize your experience, improve our website, and send periodic emails regarding updates or service announcements.</p>
+      
+      <h3 style="color: var(--text-white); margin-top: 30px;">3. Data Protection and Security</h3>
+      <p>We implement a variety of security measures including secure password hashing (bcrypt) and SSL encryption to maintain the safety of your personal information. Your local sandbox session data is stored locally on your machine.</p>
+
+      <h3 style="color: var(--text-white); margin-top: 30px;">4. Third-Party Disclosure</h3>
+      <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
+
+      <h3 style="color: var(--text-white); margin-top: 30px;">5. Contact Us</h3>
+      <p>If you have any questions regarding this Privacy Policy, please visit our <a href="contact.html" style="color: var(--accent-blue);">Contact Page</a>.</p>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer">
+    <div class="footer-grid">
+      
+      <!-- Subscription Area -->
+      <div class="footer-column subscribe">
+        <div class="logo" style="margin-bottom: 12px;">
+          <img src="logo.png" alt="NexoraCode Logo" class="logo-img">
+          <span>Nexora<span class="gradient-text">Code</span></span>
+        </div>
+        <p class="footer-desc">
+          NexoraCode is a premium developer education sandbox. We are always looking to improve our platform.
+        </p>
+        <form class="subscribe-form" id="newsletter-form">
+          <input type="text" class="subscribe-input" id="sub-email" placeholder="share your feedback or review..." required>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Column 2: Programming Notes -->
+      <div class="footer-column">
+        <h4>Programming</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#languages" class="footer-link">HTML Notes</a></li>
+          <li><a href="index.html#languages" class="footer-link">CSS Notes</a></li>
+          <li><a href="index.html#languages" class="footer-link">JavaScript Notes</a></li>
+          <li><a href="index.html#languages" class="footer-link">Python Notes</a></li>
+          <li><a href="index.html#languages" class="footer-link">Java Notes</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#interviews" class="footer-link">Interview Questions</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Quick Links -->
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#home" class="footer-link">Home</a></li>
+          <li><a href="index.html#languages" class="footer-link">Courses</a></li>
+          <li><a href="index.html#faq" class="footer-link">About</a></li>
+          <li><a href="contact.html" class="footer-link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom footer row -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexoraCode. All Rights Reserved.</p>
+      <p>Designed with ❤️ for Developers.</p>
+    </div>
+  </footer>
+  
+  <div class="modal-overlay" id="auth-modal">
+    <!-- Required to prevent errors if app.js assumes it's there -->
+  </div>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>
