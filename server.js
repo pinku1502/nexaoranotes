@@ -23,6 +23,11 @@ const requireAdmin = (req, res, next) => {
 app.use(cors());
 app.use(express.json()); // For parsing application/json
 
+app.use((req, res, next) => {
+    console.log(`[REQ] ${req.method} ${req.url} | Auth: ${req.headers.authorization}`);
+    next();
+});
+
 // Serve static files (HTML, CSS, JS, Images) from the current directory
 // We want to serve index.html by default
 app.use(express.static(path.join(__dirname)));
@@ -30,6 +35,18 @@ app.use(express.static(path.join(__dirname)));
 // ==========================================
 // API ENDPOINTS
 // ==========================================
+
+// ADMIN AUTHENTICATION
+app.post('/api/admin/login', (req, res) => {
+    const { email, password } = req.body;
+    
+    // Secure hardcoded admin credentials
+    if (email === 'admin@nexoracode.com' && password === 'admin123') {
+        res.json({ message: 'Admin login successful', token: ADMIN_TOKEN });
+    } else {
+        res.status(401).json({ error: 'Invalid admin credentials' });
+    }
+});
 
 // 1. REGISTER USER
 app.post('/api/register', (req, res) => {
@@ -39,8 +56,11 @@ app.post('/api/register', (req, res) => {
         return res.status(400).json({ error: 'Please provide name, email, and password' });
     }
 
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
     const sql = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`;
-    db.run(sql, [name, email, password], function(err) {
+    db.run(sql, [name, email, hashedPassword], function(err) {
         if (err) {
             if (err.message.includes('UNIQUE constraint failed')) {
                 return res.status(409).json({ error: 'Email already exists' });
@@ -59,14 +79,25 @@ app.post('/api/login', (req, res) => {
         return res.status(400).json({ error: 'Please provide email and password' });
     }
 
-    const sql = `SELECT * FROM users WHERE email = ? AND password = ?`;
-    db.get(sql, [email, password], (err, row) => {
+    const sql = `SELECT * FROM users WHERE email = ?`;
+    db.get(sql, [email], (err, row) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
         if (!row) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
+        
+        const isMatch = bcrypt.compareSync(password, row.password);
+        if (!isMatch) {
+            // Check if password matches plaintext for backwards compatibility
+            if (password === row.password) {
+                // Optionally rehash here, but for now just allow login
+            } else {
+                return res.status(401).json({ error: 'Invalid email or password' });
+            }
+        }
+
         res.json({ message: 'Login successful', user: { id: row.id, name: row.name, email: row.email } });
     });
 });

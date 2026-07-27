@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.deleteUser = (id, email) => {
     if (confirm(`Are you sure you want to delete the user with email: ${email}?`)) {
-      fetch(\`/api/users/\${id}\`, { method: 'DELETE' })
+      fetch(`/api/users/${id}`, { method: 'DELETE', headers: authHeaders })
       .then(res => {
           if (res.ok) {
             // If the deleted user is currently logged in, log them out
@@ -225,11 +225,14 @@ function renderFeedbacks() {
 
 window.deleteFeedback = (id) => {
   if(confirm('Are you sure you want to delete this feedback?')) {
-      fetch(\`/api/feedback/\${id}\`, { method: 'DELETE' })
+      fetch(`/api/feedback/${id}`, { method: 'DELETE', headers: authHeaders })
       .then(res => {
-          if(res.ok) renderFeedbacks();
-  renderContacts();
-          else alert('Failed to delete feedback');
+          if(res.ok) {
+              renderFeedbacks();
+              renderContacts();
+          } else {
+              alert('Failed to delete feedback');
+          }
       })
       .catch(err => console.error(err));
   }

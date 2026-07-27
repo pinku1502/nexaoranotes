@@ -649,53 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Global Mock Google Login Function
 window.mockGoogleLogin = () => {
-  // Show some visual feedback
-  const buttons = document.querySelectorAll('.google-btn');
-  buttons.forEach(btn => {
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
-    btn.style.opacity = '0.7';
-    btn.style.pointerEvents = 'none';
-  });
-
-  setTimeout(() => {
-    const users = JSON.parse(localStorage.getItem('auraUsersRegistry') || '[]');
-    const googleUser = {
-      name: "Google User",
-      email: "googleuser@gmail.com",
-      password: "google_oauth_mock_password"
-    };
-
-    // Check if google user already exists
-    const exists = users.find(u => u.email === googleUser.email);
-    if (!exists) {
-      users.push(googleUser);
-      localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
-    }
-
-    // Log them in
-    localStorage.setItem('auraUserLoggedIn', 'true');
-    localStorage.setItem('auraCurrentUser', JSON.stringify({ name: googleUser.name, email: googleUser.email }));
-
-    // Redirect to dashboard or reload
-    window.location.href = window.location.pathname.includes('login.html') ? 'dashboard.html' : window.location.href;
-  }, 1200);
-};
-
-// Admin Login Prompt
-window.promptAdminLogin = () => {
-  const adminId = prompt("🛡️ Enter Admin ID:");
-  if (!adminId) return;
-  if (adminId === "admin@nexaora.com") {
-    const adminPass = prompt("🔒 Enter Admin Password:");
-    if (adminPass === "admin123") {
-      localStorage.setItem('auraAdminLoggedIn', 'true');
-      window.location.href = 'admin.html';
-    } else {
-      alert("❌ Invalid Admin Password.");
-    }
-  } else {
-    alert("❌ Invalid Admin ID.");
-  }
+  alert("Google OAuth is currently disabled. Please use email and password to register/login.");
 };
 
   // ==========================================================================

@@ -43,15 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toSignupBtn) toSignupBtn.addEventListener('click', (e) => { e.preventDefault(); showSignup(); });
   if (toLoginBtn) toLoginBtn.addEventListener('click', (e) => { e.preventDefault(); showLogin(); });
 
-  // Get users registry from localStorage or initialize
-  function getUsers() {
-    const users = localStorage.getItem('auraUsersRegistry');
-    return users ? JSON.parse(users) : [];
-  }
-
-  function saveUsers(users) {
-    localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
-  }
+  // Removed getUsers and saveUsers functions as we now use backend API
 
   // Sign Up Submission Handler
   if (signupForm) {
@@ -88,36 +80,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const users = getUsers();
-      const existingUserIndex = users.findIndex(u => u.email === email);
-      if (existingUserIndex !== -1) {
-        if (users[existingUserIndex].password === password) {
-          users[existingUserIndex].name = name;
-          saveUsers(users);
-          showMsg(signupMsg, 'Account name updated successfully! Redirecting...', 'success');
-          localStorage.setItem('auraUserLoggedIn', 'true');
-          localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
-        } else {
-          showMsg(signupMsg, 'An account with this email already exists.', 'error');
-          return;
-        }
-      } else {
-        // Create and Save New User
-        const newUser = {
-          name,
-          email,
-          password
-        };
-        users.push(newUser);
-        saveUsers(users);
-        showMsg(signupMsg, 'Registration successful! Redirecting...', 'success');
-        localStorage.setItem('auraUserLoggedIn', 'true');
-        localStorage.setItem('auraCurrentUser', JSON.stringify({ name, email }));
-      }
-
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 1500);
+      fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+      })
+      .then(res => res.json().then(data => ({ status: res.status, body: data })))
+      .then(({ status, body }) => {
+          if (status === 201) {
+              showMsg(signupMsg, 'Registration successful! Redirecting...', 'success');
+              localStorage.setItem('auraUserLoggedIn', 'true');
+              localStorage.setItem('auraCurrentUser', JSON.stringify({ name: body.name, email: body.email }));
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 1500);
+          } else {
+              showMsg(signupMsg, body.error || 'Registration failed.', 'error');
+          }
+      })
+      .catch(err => showMsg(signupMsg, 'Network error. Is the server running?', 'error'));
     });
   }
 
@@ -137,24 +118,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const users = getUsers();
-      let user = users.find(u => u.email === email && u.password === password);
-
-      if (!user) {
-        user = { name: email.split('@')[0], email: email, password: password };
-        users.push(user);
-        saveUsers(users);
-      }
-
-      showMsg(loginMsg, 'Login successful! Redirecting...', 'success');
-
-      // Set active session
-      localStorage.setItem('auraUserLoggedIn', 'true');
-      localStorage.setItem('auraCurrentUser', JSON.stringify({ name: user.name, email: user.email }));
-
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 1200);
+      fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+      })
+      .then(res => res.json().then(data => ({ status: res.status, body: data })))
+      .then(({ status, body }) => {
+          if (status === 200) {
+              showMsg(loginMsg, 'Login successful! Redirecting...', 'success');
+              localStorage.setItem('auraUserLoggedIn', 'true');
+              localStorage.setItem('auraCurrentUser', JSON.stringify({ name: body.user.name, email: body.user.email }));
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 1200);
+          } else {
+              showMsg(loginMsg, body.error || 'Invalid credentials.', 'error');
+          }
+      })
+      .catch(err => showMsg(loginMsg, 'Network error. Is the server running?', 'error'));
     });
   }
 
@@ -191,47 +173,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Global Mock Google Login Function
 window.mockGoogleLogin = () => {
-  const buttons = document.querySelectorAll('.google-btn');
-  buttons.forEach(btn => {
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
-    btn.style.opacity = '0.7';
-    btn.style.pointerEvents = 'none';
-  });
-
-  setTimeout(() => {
-    const users = JSON.parse(localStorage.getItem('auraUsersRegistry') || '[]');
-    const googleUser = {
-      name: "Google User",
-      email: "googleuser@gmail.com",
-      password: "google_oauth_mock_password"
-    };
-
-    const exists = users.find(u => u.email === googleUser.email);
-    if (!exists) {
-      users.push(googleUser);
-      localStorage.setItem('auraUsersRegistry', JSON.stringify(users));
-    }
-
-    localStorage.setItem('auraUserLoggedIn', 'true');
-    localStorage.setItem('auraCurrentUser', JSON.stringify({ name: googleUser.name, email: googleUser.email }));
-
-    window.location.href = window.location.pathname.includes('login.html') ? 'index.html' : window.location.href;
-  }, 1200);
-};
-
-// Admin Login Prompt
-window.promptAdminLogin = () => {
-  const adminId = prompt("Enter Admin ID:");
-  if (adminId === "admin@nexaora.com") {
-    const adminPass = prompt("Enter Admin Password:");
-    if (adminPass === "admin123") {
-      localStorage.setItem('auraAdminLoggedIn', 'true');
-      alert("Admin access granted.");
-      window.location.href = 'admin.html';
-    } else {
-      alert("Invalid Admin Password.");
-    }
-  } else if (adminId) {
-    alert("Invalid Admin ID.");
-  }
+  alert("Google OAuth is currently disabled. Please use email and password to register/login.");
 };

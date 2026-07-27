@@ -58,6 +58,7 @@
       .then(({ status, body }) => {
         if (status === 200 && body.token) {
           localStorage.setItem('auraAdminToken', body.token);
+          localStorage.setItem('auraAdminLoggedIn', 'true');
           window.location.href = 'admin.html';
         } else {
           errorBox.style.display = 'block';
